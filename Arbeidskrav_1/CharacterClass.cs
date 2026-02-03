@@ -1,3 +1,5 @@
+using Spectre.Console;
+
 namespace Arbeidskrav_1;
 
 public abstract class CharacterClass:DiceRoll
@@ -18,12 +20,12 @@ public abstract class CharacterClass:DiceRoll
 
    public static void AbilityScoreGenerator()
     {
-        foreach (string value in AbilityGenerator.Keys)
+        foreach (string value in _abilityGenerator.Keys)
         {
-            AbilityGenerator[value] += Diceroll(3,6);
+            _abilityGenerator[value] += Diceroll(3,6);
         }
 
-        foreach (KeyValuePair<string, int> kvp in AbilityGenerator)
+        foreach (KeyValuePair<string, int> kvp in _abilityGenerator)
         {
             Console.WriteLine($"{kvp.Key}: {kvp.Value}");
         }
@@ -32,7 +34,7 @@ public abstract class CharacterClass:DiceRoll
 
     }
 
-    private static Dictionary<string, int> AbilityGenerator = new()
+    private static Dictionary<string, int> _abilityGenerator = new()
     {
         { "Strength", 0 },
         { "Intelligence", 0 },
@@ -46,12 +48,12 @@ public abstract class CharacterClass:DiceRoll
     {
         int total = 0;
         int average;
-        foreach (string value in AbilityGenerator.Keys)
+        foreach (string value in _abilityGenerator.Keys)
         {
-            total += AbilityGenerator[value];
+            total += _abilityGenerator[value];
         }
 
-        average = total / AbilityGenerator.Count;
+        average = total / _abilityGenerator.Count;
         Console.WriteLine($"Average: {average}");
 
         if (average <= 8)
@@ -77,20 +79,20 @@ public abstract class CharacterClass:DiceRoll
     {
         int largest = -1, secondLargest = -1;
 
-        foreach (string score in AbilityGenerator.Keys)
+        foreach (string score in _abilityGenerator.Keys)
         {
-            if (AbilityGenerator[score] > largest)
+            if (_abilityGenerator[score] > largest)
             {
                 secondLargest = largest;
-                largest = AbilityGenerator[score];
+                largest = _abilityGenerator[score];
             }
-            else if (AbilityGenerator[score] < largest && AbilityGenerator[score] > secondLargest)
+            else if (_abilityGenerator[score] < largest && _abilityGenerator[score] > secondLargest)
             {
-                secondLargest = AbilityGenerator[score];
+                secondLargest = _abilityGenerator[score];
             }
         }
 
-        foreach (KeyValuePair<string, int> kvp in AbilityGenerator)
+        foreach (KeyValuePair<string, int> kvp in _abilityGenerator)
         {
             if ((kvp.Value == largest && kvp.Key is not "Charisma" and not "Constitution")
                 || (kvp.Value == secondLargest && kvp.Key is not "Charisma" and not "Constitution"))
@@ -101,22 +103,17 @@ public abstract class CharacterClass:DiceRoll
                 switch (requisite)
                 {
                     case "Wisdom":
-                        Cleric cleric = new Cleric();
-                        Cleric.ClericAbilities = AbilityGenerator;
-                        chosen = cleric.Name;
+                        chosen = "Cleric";
                         break;
                     case "Strength":
-                        Fighter fighter = new Fighter();
-                        chosen = fighter.Name;
+                        chosen = "Fighter";
                         break;
                     case "Intelligence": 
-                        MagicUser magicUser = new MagicUser();
-                        chosen = magicUser.Name;
+                        chosen = "Magic User";
                         break;
                     case "Dexterity": 
-                        Thief thief = new Thief();
-                        chosen = thief.Name; 
-                        break;
+                        chosen = "Thief"; 
+                        break;   
                 }
                 availableClasses.Add(chosen,requisit);
             }
@@ -126,62 +123,33 @@ public abstract class CharacterClass:DiceRoll
     public static void ChooseClass()
     {
         Console.WriteLine("\nAvailable classes based on your availability scores: ");
-        
-        int count = 1;
-        foreach (KeyValuePair<string, Tuple<string, int>> className in availableClasses)
-        {
-            Console.WriteLine($"{count}. {className.Key} (Prime: {className.Value.Item1} - {className.Value.Item2})");
-            count++;
-        }
-
         if (availableClasses.Count == 1)
         {
-            Console.WriteLine("You have only one available class. ");
+            var className = availableClasses.Keys.ToList();
+            string classname = className[0];
+            Console.WriteLine($"You have only one available class: {classname} ");
             Console.Write("\nEnter character name: ");
             string name = Console.ReadLine();
-            string className = availableClasses.Keys.ElementAt(0);
-            DisplayCharacter(name, className);
             
+            DisplayCharacter(name, classname);
+            GenerateClass(classname);
+
         }
         else
         {
-            Console.Write($"\nChoose class (1-{count-1}): ");
-            GenerateCharacter();
-        }
-    }
+            var options = availableClasses.Keys.ToList();
+            var prompt = new SelectionPrompt<string>()
+                .AddChoices(options);
 
-    public static void GenerateCharacter()
-    {
-        int choice = Console.ReadKey().KeyChar;
+            var selectedOption = AnsiConsole.Prompt(prompt);
 
-        Console.Write("\nEnter character name: ");
-        string name = Console.ReadLine();
-        // if (!string.IsNullOrEmpty(name))
-        // {
-        //     Console.Write("You must enter a name, try again: ");
-        //     name = Console.ReadLine();
-        // }
-        string className = "";
-        
-        switch (choice)
-        {
-            case 1:
-                className = availableClasses.Keys.ElementAt(0);
-                DisplayCharacter(name, className);
-                break;
-            case 2:
-                className = availableClasses.Keys.ElementAt(1);
-                DisplayCharacter(name, className);
-                break;
-            case 3:
-                className = availableClasses.Keys.ElementAt(2);
-                DisplayCharacter(name, className);
-                break;
-            case 4:
-                className = availableClasses.Keys.ElementAt(3);
-                DisplayCharacter(name, className);
-                break;
+            AnsiConsole.MarkupLine($"You selected [blue]{selectedOption}[/]");
+            Console.Write("\nEnter character name: ");
+            string name = Console.ReadLine();
+            GenerateClass(selectedOption);
+            DisplayCharacter(name, selectedOption);
         }
+
     }
 
     public static void DisplayCharacter(string name, string classname)
@@ -189,5 +157,45 @@ public abstract class CharacterClass:DiceRoll
         Console.WriteLine($"*Character created*" +
                           $"\nName: {name}" +
                           $"\nClass: {classname}");
+    }
+
+    public static CharacterClass GenerateClass(string classChoice)
+    {
+        if (classChoice.ToLower() == "cleric")
+        {
+            Cleric cleric = new Cleric
+            {
+                ClericAbilities = _abilityGenerator
+            };
+            return cleric;
+        }
+
+        if (classChoice.ToLower() == "fighter")
+        {
+            Fighter fighter = new Fighter
+            {
+                FighterAbilities = _abilityGenerator
+            };
+            return fighter;
+        }
+
+        if (classChoice.ToLower() == "thief")
+        {
+            Thief thief = new Thief
+            {
+                ThiefAbilities = _abilityGenerator
+            };
+            return thief;
+        }
+
+        if (classChoice.ToLower() == "magic user")
+        {
+            MagicUser magicUser = new MagicUser
+            {
+                MagicAbilities = _abilityGenerator
+            };
+            return magicUser;
+        }
+        return null;
     }
 }
