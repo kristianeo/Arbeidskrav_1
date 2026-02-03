@@ -1,15 +1,8 @@
 namespace Arbeidskrav_1;
 
-public class Cleric:CharacterClass
+public class Cleric(string charName) :CharacterClass("Cleric", "Wisdom", charName, 1500, 1, 6)
 {
-    public Cleric(string charName) : base("Cleric", "Wisdom", charName)
-    {
-        CharacterName = charName;
-    }
-
-    private static int _diceroll = Diceroll(1, 6);
-    
-    public static Dictionary<string, int> Abilities = new()
+   public static Dictionary<string, int> Abilities = new()
     {
         { "Strength", 0 },
         { "Intelligence", 0 },
