@@ -102,6 +102,7 @@ public abstract class CharacterClass:DiceRoll
                 {
                     case "Wisdom":
                         Cleric cleric = new Cleric();
+                        Cleric.ClericAbilities = AbilityGenerator;
                         chosen = cleric.Name;
                         break;
                     case "Strength":
@@ -116,7 +117,6 @@ public abstract class CharacterClass:DiceRoll
                         Thief thief = new Thief();
                         chosen = thief.Name; 
                         break;
-                    default: break;
                 }
                 availableClasses.Add(chosen,requisit);
             }
@@ -134,12 +134,60 @@ public abstract class CharacterClass:DiceRoll
             count++;
         }
 
-        Console.Write($"\nWhich class do you chose? (1-{count-1})");
-        
-        // string choice = Console.ReadKey().KeyChar.ToString();
-        // switch (choice)
+        if (availableClasses.Count == 1)
+        {
+            Console.WriteLine("You have only one available class. ");
+            Console.Write("\nEnter character name: ");
+            string name = Console.ReadLine();
+            string className = availableClasses.Keys.ElementAt(0);
+            DisplayCharacter(name, className);
+            
+        }
+        else
+        {
+            Console.Write($"\nChoose class (1-{count-1}): ");
+            GenerateCharacter();
+        }
+    }
+
+    public static void GenerateCharacter()
+    {
+        int choice = Console.ReadKey().KeyChar;
+
+        Console.Write("\nEnter character name: ");
+        string name = Console.ReadLine();
+        // if (!string.IsNullOrEmpty(name))
         // {
-        //     case "1": new 
+        //     Console.Write("You must enter a name, try again: ");
+        //     name = Console.ReadLine();
         // }
+        string className = "";
+        
+        switch (choice)
+        {
+            case 1:
+                className = availableClasses.Keys.ElementAt(0);
+                DisplayCharacter(name, className);
+                break;
+            case 2:
+                className = availableClasses.Keys.ElementAt(1);
+                DisplayCharacter(name, className);
+                break;
+            case 3:
+                className = availableClasses.Keys.ElementAt(2);
+                DisplayCharacter(name, className);
+                break;
+            case 4:
+                className = availableClasses.Keys.ElementAt(3);
+                DisplayCharacter(name, className);
+                break;
+        }
+    }
+
+    public static void DisplayCharacter(string name, string classname)
+    {
+        Console.WriteLine($"*Character created*" +
+                          $"\nName: {name}" +
+                          $"\nClass: {classname}");
     }
 }
