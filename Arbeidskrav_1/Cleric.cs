@@ -9,7 +9,7 @@ public class Cleric:CharacterClass
 
     private int _diceroll = Diceroll(1, 6);
     
-    public static Dictionary<string, int> ClericAbilities = new()
+    public Dictionary<string, int> ClericAbilities = new()
     {
         { "Strength", 0 },
         { "Intelligence", 0 },
