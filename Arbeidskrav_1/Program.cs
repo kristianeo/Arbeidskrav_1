@@ -7,5 +7,6 @@ class Program
         CharacterClass.AbilityScoreGenerator();
         CharacterClass.ClassSelection();
         CharacterClass.ChooseClass();
+        CharacterClass.GenerateCharacter();
     }
 }
