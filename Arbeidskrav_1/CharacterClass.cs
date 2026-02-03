@@ -1,13 +1,16 @@
 namespace Arbeidskrav_1;
 
-public abstract class CharacterClass
+public abstract class CharacterClass:DiceRoll
 {
     private int _average = RerollRule();
 
     protected string PrimeRequisite;
 
-    protected CharacterClass(string primeRequisite)
+    protected string Name;
+
+    protected CharacterClass(string name, string primeRequisite)
     {
+        Name = name;
         PrimeRequisite =  primeRequisite;   
     }
     
@@ -17,7 +20,7 @@ public abstract class CharacterClass
     {
         foreach (string value in AbilityGenerator.Keys)
         {
-            AbilityGenerator[value] += Generators.DiceRoll(3, 6);
+            AbilityGenerator[value] += Diceroll(3,6);
         }
 
         foreach (KeyValuePair<string, int> kvp in AbilityGenerator)
@@ -97,10 +100,22 @@ public abstract class CharacterClass
                 Tuple<string, int> requisit = new Tuple<string, int>(kvp.Key, kvp.Value);
                 switch (requisite)
                 {
-                    case "Wisdom": chosen = "Cleric"; break;
-                    case "Strength": chosen = "Fighter"; break;
-                    case "Intelligence": chosen = "Magic User"; break;
-                    case "Dexterity": chosen = "Thief"; break;
+                    case "Wisdom":
+                        Cleric cleric = new Cleric();
+                        chosen = cleric.Name;
+                        break;
+                    case "Strength":
+                        Fighter fighter = new Fighter();
+                        chosen = fighter.Name;
+                        break;
+                    case "Intelligence": 
+                        MagicUser magicUser = new MagicUser();
+                        chosen = magicUser.Name;
+                        break;
+                    case "Dexterity": 
+                        Thief thief = new Thief();
+                        chosen = thief.Name; 
+                        break;
                     default: break;
                 }
                 availableClasses.Add(chosen,requisit);
@@ -121,6 +136,10 @@ public abstract class CharacterClass
 
         Console.Write($"\nWhich class do you chose? (1-{count-1})");
         
-        string choice = Console.ReadKey().KeyChar.ToString();
+        // string choice = Console.ReadKey().KeyChar.ToString();
+        // switch (choice)
+        // {
+        //     case "1": new 
+        // }
     }
 }
