@@ -1,13 +1,7 @@
 namespace Arbeidskrav_1;
 
-public class Thief:CharacterClass
+public class Thief(string charName) :CharacterClass("Thief", "Dexterity", charName, 1200, 1, 4)
 {
-    public Thief(string charName):base("Thief", "Dexterity", charName)
-    {
-        CharacterName = charName;
-    }
-    
-    private static int _diceroll = Diceroll(1, 4);
     
     public static Dictionary<string, int> Abilities = new()
     {

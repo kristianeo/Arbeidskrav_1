@@ -1,14 +1,8 @@
 namespace Arbeidskrav_1;
 
-public class Fighter:CharacterClass
+public class Fighter(string charName) 
+    :CharacterClass("Fighter", "Strength", charName, 2000, 1, 8)
 {
-    public Fighter(string charName):base("Fighter", "Strength", charName)
-    {
-        CharacterName = charName;
-    }
-    
-    private static int _diceroll = Diceroll(1, 8);
-    
     public static Dictionary<string, int> Abilities = new()
     {
         { "Strength", 0 },

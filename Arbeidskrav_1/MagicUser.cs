@@ -1,14 +1,7 @@
 namespace Arbeidskrav_1;
 
-public class MagicUser:CharacterClass
+public class MagicUser(string charName) :CharacterClass("Magic User", "Intelligence", charName, 2500, 1, 4)
 {
-    public MagicUser(string charName):base("Magic User", "Intelligence", charName)
-    {
-        CharacterName = charName;
-    }
-    
-    private static int _diceroll = Diceroll(1, 4);
-    
     public static Dictionary<string, int> Abilities = new()
     {
         { "Strength", 0 },
