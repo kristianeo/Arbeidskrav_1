@@ -1,38 +1,47 @@
+using Spectre.Console;
+
 namespace Arbeidskrav_1;
 
-public abstract class CharacterClass:DiceRoll
+public abstract class CharacterClass(
+    string className,
+    string primeRequisite,
+    string charName,
+    int xpLevel2,
+    int dice,
+    int sides)
+    : DiceRoll
 {
-    private int _average = RerollRule();
-
-    protected string PrimeRequisite;
-
-    protected string Name;
-
-    protected CharacterClass(string name, string primeRequisite)
-    {
-        Name = name;
-        PrimeRequisite =  primeRequisite;   
-    }
+    private int _dice = dice;
     
-    static Dictionary < string, Tuple<string, int>> availableClasses = new ();
+    private int _sides = sides;
+    
+    private int _xpLevel2 = xpLevel2;
 
-   public static void AbilityScoreGenerator()
+    protected string ClassName = className;
+
+    protected string PrimeRequisite = primeRequisite;
+
+    protected string CharacterName = charName;
+
+    static Dictionary<string, Tuple<string, int>> availableClasses = new();
+    
+    
+    public static void AbilityScoreGenerator()
     {
-        foreach (string value in AbilityGenerator.Keys)
+        foreach (string value in _abilityGenerator.Keys)
         {
-            AbilityGenerator[value] += Diceroll(3,6);
+            _abilityGenerator[value] += Diceroll(3, 6);
         }
 
-        foreach (KeyValuePair<string, int> kvp in AbilityGenerator)
+        foreach (KeyValuePair<string, int> kvp in _abilityGenerator)
         {
             Console.WriteLine($"{kvp.Key}: {kvp.Value}");
         }
 
         RerollRule();
-
     }
-
-    private static Dictionary<string, int> AbilityGenerator = new()
+    
+    private static Dictionary<string, int> _abilityGenerator = new()
     {
         { "Strength", 0 },
         { "Intelligence", 0 },
@@ -42,16 +51,17 @@ public abstract class CharacterClass:DiceRoll
         { "Charisma", 0 }
     };
 
-    private static int RerollRule()
-    {
+
+    private static void RerollRule()
+    { 
         int total = 0;
         int average;
-        foreach (string value in AbilityGenerator.Keys)
+        foreach (string value in _abilityGenerator.Keys)
         {
-            total += AbilityGenerator[value];
+            total += _abilityGenerator[value];
         }
 
-        average = total / AbilityGenerator.Count;
+        average = total / _abilityGenerator.Count;
         Console.WriteLine($"Average: {average}");
 
         if (average <= 8)
@@ -69,125 +79,181 @@ public abstract class CharacterClass:DiceRoll
             }
 
         }
-
-        return average;
     }
+    
 
     public static void ClassSelection()
     {
         int largest = -1, secondLargest = -1;
 
-        foreach (string score in AbilityGenerator.Keys)
+        foreach (string score in _abilityGenerator.Keys)
         {
-            if (AbilityGenerator[score] > largest)
+            if (_abilityGenerator[score] > largest)
             {
                 secondLargest = largest;
-                largest = AbilityGenerator[score];
+                largest = _abilityGenerator[score];
             }
-            else if (AbilityGenerator[score] < largest && AbilityGenerator[score] > secondLargest)
+            else if (_abilityGenerator[score] < largest && _abilityGenerator[score] > secondLargest)
             {
-                secondLargest = AbilityGenerator[score];
+                secondLargest = _abilityGenerator[score];
             }
         }
 
-        foreach (KeyValuePair<string, int> kvp in AbilityGenerator)
+        foreach (KeyValuePair<string, int> kvp in _abilityGenerator)
         {
             if ((kvp.Value == largest && kvp.Key is not "Charisma" and not "Constitution")
                 || (kvp.Value == secondLargest && kvp.Key is not "Charisma" and not "Constitution"))
             {
                 string requisite = kvp.Key;
-                string chosen = null;
+                string chosen = "";
                 Tuple<string, int> requisit = new Tuple<string, int>(kvp.Key, kvp.Value);
                 switch (requisite)
                 {
                     case "Wisdom":
-                        Cleric cleric = new Cleric();
-                        Cleric.ClericAbilities = AbilityGenerator;
-                        chosen = cleric.Name;
+                        chosen = "Cleric";
                         break;
                     case "Strength":
-                        Fighter fighter = new Fighter();
-                        chosen = fighter.Name;
+                        chosen = "Fighter";
                         break;
-                    case "Intelligence": 
-                        MagicUser magicUser = new MagicUser();
-                        chosen = magicUser.Name;
+                    case "Intelligence":
+                        chosen = "Magic User";
                         break;
-                    case "Dexterity": 
-                        Thief thief = new Thief();
-                        chosen = thief.Name; 
+                    case "Dexterity":
+                        chosen = "Thief";
                         break;
                 }
-                availableClasses.Add(chosen,requisit);
+
+                availableClasses.Add(chosen, requisit);
             }
         }
     }
 
     public static void ChooseClass()
     {
-        Console.WriteLine("\nAvailable classes based on your availability scores: ");
-        
-        int count = 1;
-        foreach (KeyValuePair<string, Tuple<string, int>> className in availableClasses)
-        {
-            Console.WriteLine($"{count}. {className.Key} (Prime: {className.Value.Item1} - {className.Value.Item2})");
-            count++;
-        }
-
         if (availableClasses.Count == 1)
         {
-            Console.WriteLine("You have only one available class. ");
+            var classChoice = availableClasses.Keys.ToList();
+            Console.WriteLine($"\nYou have only one available class: {classChoice[0]} ");
             Console.Write("\nEnter character name: ");
-            string name = Console.ReadLine();
-            string className = availableClasses.Keys.ElementAt(0);
-            DisplayCharacter(name, className);
-            
+            string charName = Console.ReadLine();
+
+            CharacterClass character = GenerateClass(classChoice[0], charName);
+            DisplayCharacter(character);
         }
         else
         {
-            Console.Write($"\nChoose class (1-{count-1}): ");
-            GenerateCharacter();
+            Console.WriteLine("\nAvailable classes based on your ability scores: ");
+            var options = availableClasses.Keys.ToList();
+            var prompt = new SelectionPrompt<string>()
+                .AddChoices(options);
+            var classChoice = AnsiConsole.Prompt(prompt);
+
+            AnsiConsole.MarkupLine($"You selected [blue]{classChoice}[/]");
+            Console.Write("\nEnter character name: ");
+            string charName = Console.ReadLine();
+            CharacterClass character = GenerateClass(classChoice, charName);
+            DisplayCharacter(character);
         }
+
     }
 
-    public static void GenerateCharacter()
+    public static void DisplayCharacter(CharacterClass character)
     {
-        int choice = Console.ReadKey().KeyChar;
-
-        Console.Write("\nEnter character name: ");
-        string name = Console.ReadLine();
-        // if (!string.IsNullOrEmpty(name))
-        // {
-        //     Console.Write("You must enter a name, try again: ");
-        //     name = Console.ReadLine();
-        // }
-        string className = "";
+        var prScore = _abilityGenerator.FirstOrDefault(s => s.Key == character.PrimeRequisite);
         
+        Console.WriteLine($"\n---CHARACTER CREATED---" +
+                          $"\nName: {character.CharacterName}" +
+                          $"\nClass: {character.ClassName}" +
+                          $"\n{ConstitutionModifier(character)}");
+        
+        Console.WriteLine("\nAbility Scores:");
+        foreach (KeyValuePair<string, int> kvp in _abilityGenerator)
+        {
+            Console.WriteLine($"{kvp.Key}: {kvp.Value}");
+        }
+
+        Console.WriteLine($"\nPrime Requisite: {character.PrimeRequisite} ({prScore.Value}) - " +
+                          $"Modifier: {Modifier(prScore.Value)}" +
+                          $"\nXP for level 2: {character._xpLevel2}");
+    }
+
+    public static CharacterClass GenerateClass(string classChoice, string charName)
+    {
+        string choice = classChoice.ToLower();
         switch (choice)
         {
-            case 1:
-                className = availableClasses.Keys.ElementAt(0);
-                DisplayCharacter(name, className);
-                break;
-            case 2:
-                className = availableClasses.Keys.ElementAt(1);
-                DisplayCharacter(name, className);
-                break;
-            case 3:
-                className = availableClasses.Keys.ElementAt(2);
-                DisplayCharacter(name, className);
-                break;
-            case 4:
-                className = availableClasses.Keys.ElementAt(3);
-                DisplayCharacter(name, className);
-                break;
+            case "cleric":
+                Cleric cleric = new Cleric(charName);
+                return cleric;
+
+            case "fighter":
+                Fighter fighter = new Fighter(charName);
+                return fighter;
+
+            case "thief":
+                Thief thief = new Thief(charName);
+                return thief;
+
+            case "magic user":
+                MagicUser magicUser = new MagicUser(charName);
+                return magicUser;
+
+            default:
+                return null;
         }
     }
 
-    public static void DisplayCharacter(string name, string classname)
+    public static string Modifier(int num)
     {
-        Console.WriteLine($"*Character created*" +
-                          $"\nName: {name}" +
-                          $"\nClass: {classname}");
+        string modifier = "0";
+        switch (num)
+        {
+            case 3:
+                modifier = "-3";
+                break;
+            case 4:
+            case 5:
+                modifier = "-2";
+                break;
+            case 6:
+            case 7:
+            case 8:
+                modifier = "-1";
+                break;
+            case 9:
+            case 10:
+            case 11:
+            case 12:
+                modifier = "0";
+                break;
+            case 13:
+            case 14:
+            case 15:
+                modifier = "+1";
+                break;
+            case 16:
+            case 17:
+                modifier = "+2";
+                break;
+            case 18:
+                modifier = "+3";
+                break;
+        }
+
+        return modifier;
     }
+
+    public static string ConstitutionModifier(CharacterClass character)
+    {
+        var constitutionScore = _abilityGenerator.FirstOrDefault(s => s.Key == "Constitution");
+        int modifier = Int16.Parse(Modifier(constitutionScore.Value));
+        int hitPoints = Diceroll(character._dice, character._sides) - modifier;
+        if (hitPoints < 1)
+        {
+            hitPoints = 1;
+        }
+        
+        return $"Hit Points: {hitPoints} ({character._dice}d{character._sides} + {modifier})";
+    }
+
 }

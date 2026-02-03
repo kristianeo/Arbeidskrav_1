@@ -1,15 +1,8 @@
 namespace Arbeidskrav_1;
 
-public class Cleric:CharacterClass
+public class Cleric(string charName) :CharacterClass("Cleric", "Wisdom", charName, 1500, 1, 6)
 {
-    public Cleric() : base("Cleric", "Wisdom")
-    {
-        
-    }
-
-    private int _diceroll = Diceroll(1, 6);
-    
-    public static Dictionary<string, int> ClericAbilities = new()
+   public static Dictionary<string, int> Abilities = new()
     {
         { "Strength", 0 },
         { "Intelligence", 0 },
@@ -21,6 +14,6 @@ public class Cleric:CharacterClass
 
     public override string ToString()
     {
-        return this.Name;
+        return this.ClassName;
     }
 }
