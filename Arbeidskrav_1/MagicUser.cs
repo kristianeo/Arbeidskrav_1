@@ -2,12 +2,14 @@ namespace Arbeidskrav_1;
 
 public class MagicUser:CharacterClass
 {
-    public MagicUser():base("Magic User", "Intelligence")
+    public MagicUser(string charName):base("Magic User", "Intelligence", charName)
     {
-        
+        CharacterName = charName;
     }
     
-    public Dictionary<string, int> MagicAbilities = new()
+    private static int _diceroll = Diceroll(1, 4);
+    
+    public static Dictionary<string, int> Abilities = new()
     {
         { "Strength", 0 },
         { "Intelligence", 0 },
@@ -19,6 +21,6 @@ public class MagicUser:CharacterClass
     
     public override string ToString()
     {
-        return this.Name;
+        return this.ClassName;
     }
 }

@@ -2,12 +2,14 @@ namespace Arbeidskrav_1;
 
 public class Fighter:CharacterClass
 {
-    public Fighter():base("Fighter", "Strength")
+    public Fighter(string charName):base("Fighter", "Strength", charName)
     {
-        
+        CharacterName = charName;
     }
     
-    public Dictionary<string, int> FighterAbilities = new()
+    private static int _diceroll = Diceroll(1, 8);
+    
+    public static Dictionary<string, int> Abilities = new()
     {
         { "Strength", 0 },
         { "Intelligence", 0 },
@@ -19,6 +21,6 @@ public class Fighter:CharacterClass
     
     public override string ToString()
     {
-        return this.Name;
+        return this.ClassName;
     }
 }

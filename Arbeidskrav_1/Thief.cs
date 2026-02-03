@@ -2,12 +2,14 @@ namespace Arbeidskrav_1;
 
 public class Thief:CharacterClass
 {
-    public Thief():base("Thief", "Dexterity")
+    public Thief(string charName):base("Thief", "Dexterity", charName)
     {
-        
+        CharacterName = charName;
     }
     
-    public Dictionary<string, int> ThiefAbilities = new()
+    private static int _diceroll = Diceroll(1, 4);
+    
+    public static Dictionary<string, int> Abilities = new()
     {
         { "Strength", 0 },
         { "Intelligence", 0 },
@@ -19,6 +21,6 @@ public class Thief:CharacterClass
     
     public override string ToString()
     {
-        return this.Name;
+        return this.ClassName;
     }
 }
