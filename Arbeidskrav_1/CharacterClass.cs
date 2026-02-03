@@ -6,16 +6,19 @@ public abstract class CharacterClass:DiceRoll
 {
     private int _average = RerollRule();
 
-    protected string PrimeRequisite;
-
-    protected string Name;
-
-    protected CharacterClass(string name, string primeRequisite)
-    {
-        Name = name;
-        PrimeRequisite =  primeRequisite;   
-    }
+    protected string ClassName;
     
+    protected string PrimeRequisite;
+    
+    protected string CharacterName;
+
+    protected CharacterClass(string className, string primeRequisite,string charName)
+    {
+        ClassName = className;
+        PrimeRequisite =  primeRequisite; 
+        CharacterName = charName;
+    }
+
     static Dictionary < string, Tuple<string, int>> availableClasses = new ();
 
    public static void AbilityScoreGenerator()
@@ -98,7 +101,7 @@ public abstract class CharacterClass:DiceRoll
                 || (kvp.Value == secondLargest && kvp.Key is not "Charisma" and not "Constitution"))
             {
                 string requisite = kvp.Key;
-                string chosen = null;
+                string chosen = "";
                 Tuple<string, int> requisit = new Tuple<string, int>(kvp.Key, kvp.Value);
                 switch (requisite)
                 {
@@ -122,80 +125,100 @@ public abstract class CharacterClass:DiceRoll
 
     public static void ChooseClass()
     {
-        Console.WriteLine("\nAvailable classes based on your availability scores: ");
         if (availableClasses.Count == 1)
         {
-            var className = availableClasses.Keys.ToList();
-            string classname = className[0];
-            Console.WriteLine($"You have only one available class: {classname} ");
+            var classChoice = availableClasses.Keys.ToList();
+            Console.WriteLine($"You have only one available class: {classChoice[0]} ");
             Console.Write("\nEnter character name: ");
-            string name = Console.ReadLine();
-            
-            DisplayCharacter(name, classname);
-            GenerateClass(classname);
+            string charName = Console.ReadLine();
+
+            CharacterClass character = GenerateClass(classChoice[0], charName);
+            DisplayCharacter(character);
 
         }
         else
         {
+            Console.WriteLine("\nAvailable classes based on your availability scores: ");
             var options = availableClasses.Keys.ToList();
             var prompt = new SelectionPrompt<string>()
                 .AddChoices(options);
 
-            var selectedOption = AnsiConsole.Prompt(prompt);
+            var classChoice = AnsiConsole.Prompt(prompt);
 
-            AnsiConsole.MarkupLine($"You selected [blue]{selectedOption}[/]");
+            AnsiConsole.MarkupLine($"You selected [blue]{classChoice}[/]");
             Console.Write("\nEnter character name: ");
-            string name = Console.ReadLine();
-            GenerateClass(selectedOption);
-            DisplayCharacter(name, selectedOption);
+            string charName = Console.ReadLine();
+            CharacterClass character = GenerateClass(classChoice, charName);
+            DisplayCharacter(character);
         }
 
     }
 
-    public static void DisplayCharacter(string name, string classname)
+    public static void DisplayCharacter(CharacterClass character)
     {
-        Console.WriteLine($"*Character created*" +
-                          $"\nName: {name}" +
-                          $"\nClass: {classname}");
+        Console.WriteLine($"\n---CHARACTER CREATED---" +
+                          $"\nName: {character.CharacterName}" +
+                          $"\nClass: {character.ClassName}");
+        Console.WriteLine("\nAbility Scores:");
+        foreach (KeyValuePair<string, int> kvp in _abilityGenerator)
+        {
+            Console.WriteLine($"{kvp.Key}: {kvp.Value}");
+        }
     }
 
-    public static CharacterClass GenerateClass(string classChoice)
+    public static CharacterClass GenerateClass(string classChoice, string charName)
     {
-        if (classChoice.ToLower() == "cleric")
+        string choice = classChoice.ToLower();
+        switch (choice)
         {
-            Cleric cleric = new Cleric
-            {
-                ClericAbilities = _abilityGenerator
-            };
+            case "cleric":
+                Cleric cleric = new Cleric(charName);
             return cleric;
-        }
-
-        if (classChoice.ToLower() == "fighter")
-        {
-            Fighter fighter = new Fighter
-            {
-                FighterAbilities = _abilityGenerator
-            };
+            
+            case  "fighter":
+                Fighter fighter = new Fighter(charName);
             return fighter;
-        }
-
-        if (classChoice.ToLower() == "thief")
-        {
-            Thief thief = new Thief
-            {
-                ThiefAbilities = _abilityGenerator
-            };
+            
+            case "thief":
+                Thief thief = new Thief(charName);
             return thief;
-        }
-
-        if (classChoice.ToLower() == "magic user")
-        {
-            MagicUser magicUser = new MagicUser
-            {
-                MagicAbilities = _abilityGenerator
-            };
+            
+            case "magic user":
+                MagicUser magicUser = new MagicUser(charName);
             return magicUser;
+            
+            default:
+                return null;
         }
-        return null;
+    }
+
+    public static int Modifier(int num)
+    {
+        int modifier = 0;
+        switch (num)
+        {
+            case 3:
+                modifier = -3;
+                break;
+            case 4: case 5:
+                modifier = -2;
+                break;
+            case 6: case 7: case 8:
+                modifier = -1;
+                break;
+            case 9: case 10: case 11: case 12:
+                modifier = 0;
+                break;
+            case 13: case 14: case 15:
+                modifier = 1;
+                break;
+            case 16: case 17:
+                modifier = 2;
+                break;
+            case 18:
+                modifier = 3;
+                break;
+        }
+        return modifier;
     }
 }
