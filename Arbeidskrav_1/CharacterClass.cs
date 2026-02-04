@@ -33,7 +33,7 @@ public abstract class CharacterClass(
     
     static Dictionary<string, Tuple<string, int>> _availableClasses = new();
        
-    private static Dictionary<string, int> _abilityScores = new()
+    protected static Dictionary<string, int> _abilityScores = new()
     {
         { "Strength", 0 },
         { "Intelligence", 0 },
@@ -263,7 +263,7 @@ public abstract class CharacterClass(
             3 => "-3",
             4 or 5 => "-2",
             6 or 7 or 8 => "-1",
-            9 or 10 or 11 or 12 => "0",
+            9 or 10 or 11 or 12 => "+0",
             13 or 14 or 15 => "+1",
             16 or 17 => "+2",
             18 => "+3",
