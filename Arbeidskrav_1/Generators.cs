@@ -1,4 +1,5 @@
 using System.Reflection.Metadata.Ecma335;
+using Arbeidskrav_1.CharacterClasses;
 using Spectre.Console;
 
 namespace Arbeidskrav_1;
@@ -23,55 +24,64 @@ public class Generators
     /// Uses Average(), if average is less than or equal to 8
     /// the player gets a chance to reroll.
     /// </summary>
-    public static void AbilityScoreGenerator(Dictionary<string, int> dictionary)
+    public static void AbilityScoreGenerator()
     {
         TryAgain:
-        foreach (string value in dictionary.Keys)
+        foreach (string value in CharacterClass._abilityScores.Keys)
         {
-            dictionary[value] += DiceRoll(3, 6);
+            CharacterClass._abilityScores[value] = 0;
+            CharacterClass._abilityScores[value] += DiceRoll(3, 6);
         }
         
-        int average = Average(dictionary);
+        DisplayAbilityScores();
+        
+        int average = Average(CharacterClass._abilityScores);
         if (average <= 8)
         {
-            Console.Write("\nYour ability scores are below average. \n" +
-                          "Would you like to reroll? Y/N: ");
-            char answer = Console.ReadKey().KeyChar;
-            switch (answer)
+            Console.WriteLine();
+            if (AnsiConsole.Confirm("Your ability scores are below average. " +
+                                    "\nWould you like to reroll?"))
             {
-                case 'y':
-                    goto TryAgain;
-                case 'n':
-                    break;
+                Console.Clear();
+                AnsiConsole.Status()
+                    .Spinner(Spinner.Known.Arrow)
+                    .Start("Rerolling...", ctx =>
+                    {
+                        Thread.Sleep(1500);
+                    });
+  
+                AnsiConsole.MarkupLine("[green]Rerolled!![/]");
+                goto TryAgain;
             }
+            
         }
     }
-    
+
     /// <summary>
     /// Calculates the highest and second-highest ability scores from the ability scores dictionary.
     /// Adds the ability names with their prime requisite and score in an available-classes dictionary.
     /// </summary>
-    public static void ClassSelector(Dictionary<string, int> dictionary)
+    public static void ClassSelector()
     {
         int highest = -1, secondHighest = -1;
 
-        foreach (string score in dictionary.Keys)
+        foreach (string score in CharacterClass._abilityScores.Keys)
         {
-            if (dictionary[score] > highest)
+            if (CharacterClass._abilityScores[score] > highest)
             {
                 secondHighest = highest;
-                highest = dictionary[score];
+                highest = CharacterClass._abilityScores[score];
             }
-            else if (dictionary[score] < highest && dictionary[score] > secondHighest)
+            else if (CharacterClass._abilityScores[score] < highest && CharacterClass._abilityScores[score] > secondHighest)
             {
-                secondHighest = dictionary[score];
+                secondHighest = CharacterClass._abilityScores[score];
             }
         }
 
-        foreach (KeyValuePair<string, int> kvp in dictionary)
+        foreach (KeyValuePair<string, int> kvp in CharacterClass._abilityScores)
         {
-            if ((kvp.Value == highest && kvp.Key is not "Charisma" and not "Constitution")
-                || (kvp.Value == secondHighest && kvp.Key is not "Charisma" and not "Constitution"))
+            if ((kvp.Value == highest && kvp.Key is not "Charisma" and not "Constitution") || 
+                (kvp.Value == secondHighest && kvp.Key is not "Charisma" and not "Constitution"))
             {
                 string available = kvp.Key;
                 string chosen = "";
@@ -95,7 +105,20 @@ public class Generators
                 CharacterClass.AvailableClasses.Add(chosen, requisiteScore);
             }
         }
+
+        if (CharacterClass.AvailableClasses.Count == 0)
+        {
+            AnsiConsole.WriteLine("You have no available classes based on your ability scores.");
+            AnsiConsole.Status()
+                .Start("Rerolling...", ctx => { Thread.Sleep(1500); });
+
+            AnsiConsole.MarkupLine("[green]Rerolled!![/]");
+            AbilityScoreGenerator(); //runs these methods again to get valid data 
+            ClassSelector();
+        }
+        
     }
+
     /// <summary>
     /// Choose a class from available classes.
     /// If there is only one available class, it chooses for the player.
@@ -103,23 +126,23 @@ public class Generators
     /// <returns>Chosen character class</returns>
     public static string ChooseClass()
     {
-        var availableClasses = CharacterClass.AvailableClasses;
+        var availableClasses = CharacterClass.AvailableClasses; 
+        var available = availableClasses.ToDictionary(kv => $"{kv.Key} {kv.Value}", kv =>  kv.Key);
         if (availableClasses.Count == 1)
         {
             var classChoice = availableClasses.Keys.ToList();
-            AnsiConsole.MarkupLine($"\n[bold]You have only one available class:[/] [blue]{classChoice[0]}[/] ");
+            AnsiConsole.MarkupLine($"\n[bold]You have only one available class:[/] [blue]{Markup.Escape(classChoice[0])} [/]");
             
             return classChoice[0];
         }
         else
         {
-            var available = availableClasses.ToDictionary(kv => $"{kv.Key} {kv.Value}", kv =>  kv.Key);
             var prompt = new SelectionPrompt<string>()
                 .Title("\n[bold]Available classes based on your ability scores: [/]")
                 .AddChoices(available.Keys);
             var selected = AnsiConsole.Prompt(prompt);
             var classChoice = available[selected];
-            AnsiConsole.MarkupLine($"\n[blue]You selected {classChoice}[/]");
+            AnsiConsole.MarkupLineInterpolated($"\n[blue]You selected {selected} [/]");
             
             return classChoice;
         }
@@ -198,5 +221,25 @@ public class Generators
         };
 
         return modifier;
+    }
+    
+    public static void DisplayAbilityScores()
+    {
+        var abilityScores = CharacterClass._abilityScores;
+        int average = Average(abilityScores);
+        var abilityKeys = abilityScores.Keys.ToList();
+        var abilityValues = abilityScores.Values.ToList();
+        var chart = new BarChart()
+            .Label("[bold]Ability Scores[/]")
+            .WithMaxValue(12)
+            .AddItem(abilityKeys[0], abilityValues[0], Color.Red)
+            .AddItem(abilityKeys[1], abilityValues[1], Color.Blue)
+            .AddItem(abilityKeys[2], abilityValues[2], Color.Green)
+            .AddItem(abilityKeys[3], abilityValues[3], Color.Yellow)
+            .AddItem(abilityKeys[4], abilityValues[4], Color.Orange1)
+            .AddItem(abilityKeys[5], abilityValues[5], Color.Purple)
+            .AddItem("Average", average, Color.Red3);
+            
+        AnsiConsole.Write(chart);
     }
 }
