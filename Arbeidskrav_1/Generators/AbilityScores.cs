@@ -5,40 +5,33 @@ namespace Arbeidskrav_1.Generators;
 
 public abstract class AbilityScores
 {
-    private static Dictionary<string, int> _abilityScores = new()
-    {
-        { "Strength", 0 },
-        { "Intelligence", 0 },
-        { "Wisdom", 0 },
-        { "Dexterity", 0 },
-        { "Constitution", 0 },
-        { "Charisma", 0 }
-    };
-    
-    
-    /// <summary>
-    /// Generates ability scores for each ability by rolling 3d6.
+   /// <summary>
+    /// Generates ability score per ability by rolling 3d6.
     /// Minimum value 3, maximum value 18.
     /// Uses Average(), if average is less than or equal to 8
-    /// the player gets a chance to reroll.
+    /// the player gets a choice to reroll.
     /// </summary>
     public static void AbilityScoreGenerator()
     {
         TryAgain:
-        foreach (string value in _abilityScores.Keys)
+        foreach (string value in CharacterClass.AbilityScores.Keys)
         {
-            _abilityScores[value] = 0;
-            _abilityScores[value] += DiceRoll.RollDice(3, 6);
-            CharacterClass.AbilityScores[value] =  _abilityScores[value];
+            CharacterClass.AbilityScores[value] = 0;
+            CharacterClass.AbilityScores[value] += DiceRoll.RollDice(3, 6);
         }
         
         UserInterface.UserInterface.DisplayAbilityScores();
         
         if (Average(CharacterClass.AbilityScores) <= 8)
         {
-            Console.WriteLine();
-            if (AnsiConsole.Confirm("Your ability scores are below average. " +
-                                    "\nWould you like to reroll?"))//TODO: Fix this, itd ugly 
+            var prompt = new SelectionPrompt<string>()
+                .Title("\n[bold red]Your ability scores are below average... [/]" +
+                       "\nWould you like to reroll? (y/n) ")
+                .AddChoices("Yes", "No");
+            var selected = AnsiConsole.Prompt(prompt);
+            AnsiConsole.MarkupLineInterpolated($"\n[blue]You selected {selected} [/]");
+            
+            if (selected == "Yes")
             {
                 Console.Clear();
                 AnsiConsole.Status()
@@ -51,7 +44,6 @@ public abstract class AbilityScores
                 AnsiConsole.MarkupLine("[green]Rerolled!![/]");
                 goto TryAgain;
             }
-            
         }
     }
     public static int Average(Dictionary<string, int> dictionary)
