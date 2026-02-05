@@ -61,13 +61,13 @@ public abstract class CharacterClass
     {
         return "";
     }
-    public static void DisplayCharacter(CharacterClass character, string hitPoints)
+    public void DisplayCharacter(string hitPoints)
     {  
-        var prScore = _abilityScores.FirstOrDefault(s => s.Key == character._primeRequisite);
+        var prScore = _abilityScores.FirstOrDefault(s => s.Key == _primeRequisite);
     
         Console.WriteLine($"\n---CHARACTER CREATED---" +
-                          $"\nName: {character._characterName}" +
-                          $"\nClass: {character._className}" +
+                          $"\nName: {_characterName}" +
+                          $"\nClass: {_className}" +
                           $"\n{hitPoints}");
     
         Console.WriteLine("\nAbility Scores:");
@@ -76,9 +76,9 @@ public abstract class CharacterClass
             Console.WriteLine($"{kvp.Key}: {kvp.Value}");
         }
 
-        Console.WriteLine($"\nPrime Requisite: {character._primeRequisite} ({prScore.Value}) - " +
+        Console.WriteLine($"\nPrime Requisite: {_primeRequisite} ({prScore.Value}) - " +
                           $"Modifier: {Modifier.Modify(prScore.Value)}" +
-                          $"\nXP for level 2: {character._xpLevel2}");
+                          $"\nXP for level 2: {_xpLevel2}");
     }
 
     public override string ToString()
