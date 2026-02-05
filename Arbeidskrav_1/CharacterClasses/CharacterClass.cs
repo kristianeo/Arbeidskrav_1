@@ -68,7 +68,7 @@ public abstract class CharacterClass
         Console.WriteLine($"\n---CHARACTER CREATED---" +
                           $"\nName: {_characterName}" +
                           $"\nClass: {_className}" +
-                          $"\n{hitPoints}");
+                          $"\nHit Points: {hitPoints}");
     
         Console.WriteLine("\nAbility Scores:");
         foreach (KeyValuePair<string, int> kvp in _abilityScores)
