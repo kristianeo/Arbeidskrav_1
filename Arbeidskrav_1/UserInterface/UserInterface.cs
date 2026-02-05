@@ -7,44 +7,60 @@ namespace Arbeidskrav_1.UserInterface;
 
 public class UserInterface
 {
-
     /// <summary>
     /// Displays stats for chosen character.
     /// Uses Modifier() and ConstitutionModifier() for specific class.
     /// </summary>
     /// <param name="character">character to display</param>
-    public static void DisplayCharacter(CharacterClass character, string hitPoints)
+    public static void DisplayCharacter(CharacterClass character)
     {
+        Console.Clear();
         var prScore = CharacterClass.AbilityScores.FirstOrDefault(s => s.Key == character.PrimeRequisite);
-        string panelText = $"\n[bold]Name:[/] {character.CharacterName}" +
-                           $"\n[bold]Class[/]: {character.ClassName}" +
-                           $"\n[bold]Hit Points:[/] {hitPoints}";
+        var abilityValues = CharacterClass.AbilityScores.Values.ToList();
+        
+        AnsiConsole.Status()
+            .Start("Creating character...", ctx =>
+            {
+                Thread.Sleep(1500);
+  
+                ctx.Status("Calculating scores...");
+                Thread.Sleep(2000);
+  
+                // ctx.Status("Pouring into cup...");
+                // Thread.Sleep(1000);
+            });
+  
+        AnsiConsole.MarkupLine("[green]Character is created![/]");
+        
+        var grid = new Grid();
+  
+        grid.AddColumn(new GridColumn { Width = 20, Alignment = Justify.Right });
+        grid.AddColumn(new GridColumn());
+  
+        grid.AddEmptyRow();
+  
+        grid.AddRow(new Markup("[bold]Character Name: [/]"), new Markup(character.CharacterName));
+        grid.AddRow(new Markup("[bold]Class: [/]"), new Markup(character.ClassName));
+        grid.AddRow(new Markup("[bold]Hit Points: [/]"), new Markup(character.ConstitutionModifier()));
+        grid.AddRow(new Markup("[bold]Prime Requisite: [/]"), new Markup(character.PrimeRequisite + " (Modifier " + Modifier.Modify(prScore.Value) + ")"));
+        grid.AddRow(new Markup("[bold]XP for level 2: [/]"), new Markup( $"{character.XpLevel2}"));
+        grid.AddRow(
+            new Markup("[bold]Ability Scores: [/]"),
+            new Panel($"[yellow]STR: [/][yellow4]{abilityValues[0]} [/]" +
+                      $"[green3]INT: [/][green4]{abilityValues[1]} [/]" +
+                      $"[blue]WIS: [/][blue1]{abilityValues[2]} [/]")
+                .NoBorder());
+        grid.AddRow(
+            new Markup(""),
+            new Panel($"[red]DEX: [/][red3]{abilityValues[3]}[/] " +
+                      $"[darkorange]CON: [/][darkorange3_1]{abilityValues[4]} [/]" +
+                      $"[purple]CHA: [/][purple4]{abilityValues[5]} [/]")
+                .NoBorder());
+  
+        AnsiConsole.Write(grid);
 
-        var display = new Panel(panelText)
-
-            .Header("[yellow]Character created[/]", Justify.Center)
-            .RoundedBorder()
-            .BorderColor(Color.Yellow)
-            .Border(BoxBorder.Ascii)
-            .Padding(2, 1)
-            .Expand();
-
-        AnsiConsole.Write(display);
-
-
-
-        Console.WriteLine("\nAbility Scores:");
-        foreach (KeyValuePair<string, int> kvp in CharacterClass.AbilityScores)
-        {
-            Console.WriteLine($"{kvp.Key}: {kvp.Value}");
-        }
-
-        Console.WriteLine($"\nPrime Requisite: {character.PrimeRequisite} ({prScore.Value}) - " +
-                          $"Modifier: {Modifier.Modify(prScore.Value)}" +
-                          $"\nXP for level 2: {character.XpLevel2}");
+        //TODO: Add option to create new character 
     }
-
-
     public static void DisplayAbilityScores()
     {
         var abilityScores = CharacterClass.AbilityScores;
@@ -53,7 +69,7 @@ public class UserInterface
         var abilityValues = abilityScores.Values.ToList();
         var chart = new BarChart()
             .Label("[bold]Ability Scores[/]")
-            .WithMaxValue(12)
+            .WithMaxValue(5)
             .AddItem(abilityKeys[0], abilityValues[0], Color.Red)
             .AddItem(abilityKeys[1], abilityValues[1], Color.Blue)
             .AddItem(abilityKeys[2], abilityValues[2], Color.Green)
