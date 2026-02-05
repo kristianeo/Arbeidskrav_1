@@ -2,7 +2,7 @@ using Arbeidskrav_1.CharacterClasses;
 
 namespace Arbeidskrav_1.Generators;
 
-public class ClassGenerator
+public abstract class CharacterGenerator
 {
     public static CharacterClass GenerateClass(string classChoice, string charName)
     {

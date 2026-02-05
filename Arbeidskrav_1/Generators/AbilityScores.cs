@@ -3,7 +3,7 @@ using Spectre.Console;
 
 namespace Arbeidskrav_1.Generators;
 
-public abstract class AbilityScoreGenerator
+public abstract class AbilityScores
 {
     private static Dictionary<string, int> _abilityScores = new()
     {
@@ -22,7 +22,7 @@ public abstract class AbilityScoreGenerator
     /// Uses Average(), if average is less than or equal to 8
     /// the player gets a chance to reroll.
     /// </summary>
-    public static void AbilityScore()
+    public static void AbilityScoreGenerator()
     {
         TryAgain:
         foreach (string value in _abilityScores.Keys)
@@ -38,7 +38,7 @@ public abstract class AbilityScoreGenerator
         {
             Console.WriteLine();
             if (AnsiConsole.Confirm("Your ability scores are below average. " +
-                                    "\nWould you like to reroll?"))
+                                    "\nWould you like to reroll?"))//TODO: Fix this, itd ugly 
             {
                 Console.Clear();
                 AnsiConsole.Status()

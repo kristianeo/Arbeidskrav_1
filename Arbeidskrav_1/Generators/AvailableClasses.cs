@@ -5,7 +5,7 @@ namespace Arbeidskrav_1.Generators;
 
 public class AvailableClasses
 {
-    public static Dictionary<string, Tuple<string, int>> AvailableClass = new();
+    public static readonly Dictionary<string, Tuple<string, int>> AvailableClass = new();
     
         /// <summary>
     /// Calculates the highest and second-highest ability scores from the ability scores dictionary.
@@ -66,4 +66,5 @@ public class AvailableClasses
         }
         
     }
+        //TODO: Make these into multiple methods, not one long one
 }
