@@ -57,9 +57,17 @@ public abstract class CharacterClass
     /// Calculates Hit Points for given character class 
     /// </summary>
     /// <returns>Hit Points: x (xdx +/- x)</returns>
-    public virtual string ConstitutionModifier()
+    public string ConstitutionModifier()
     {
-        return "";
+        var constitutionScore = AbilityScores.FirstOrDefault(s => s.Key == "Constitution");
+        int modifier = short.Parse(Modifier.Modify(constitutionScore.Value));
+        int hitPoints = DiceRoll.RollDice(Dice, Sides) - modifier;
+        if (hitPoints < 1)
+        {
+            hitPoints = 1;
+        }
+
+        return $"{hitPoints} ({Dice}d{Sides} {Modifier.Modify(constitutionScore.Value)}";
     }
     public void DisplayCharacter(string hitPoints)
     {  
