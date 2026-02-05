@@ -1,8 +1,8 @@
-namespace Arbeidskrav_1;
+namespace Arbeidskrav_1.CharacterClasses;
 
-public class Generators
+public class DiceRoll
 {
-    public static int DiceRoll(int dice, int sides)
+    public static int RollDice(int dice, int sides)
     {
         int diceRoll = 0;
         Random random = new Random();
@@ -10,7 +10,6 @@ public class Generators
         {
             diceRoll += random.Next(1, sides+1);
         }
-        Console.WriteLine(diceRoll);
         return diceRoll;
     }
 }
