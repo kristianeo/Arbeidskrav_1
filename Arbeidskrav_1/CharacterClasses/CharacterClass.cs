@@ -67,7 +67,7 @@ public abstract class CharacterClass
             hitPoints = 1;
         }
 
-        return $"{hitPoints} ({Dice}d{Sides} {Modifier.Modify(constitutionScore.Value)}";
+        return $"{hitPoints} ({Dice}d{Sides} {Modifier.Modify(constitutionScore.Value)})";
     }
     public void DisplayCharacter(string hitPoints)
     {  
