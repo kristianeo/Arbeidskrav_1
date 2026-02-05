@@ -4,7 +4,7 @@ namespace Arbeidskrav_1.Generators;
 
 public class ClassGenerator
 {
-    public static CharacterClasses.CharacterClass GenerateClass(string classChoice, string charName)
+    public static CharacterClass GenerateClass(string classChoice, string charName)
     {
         string choice = classChoice.ToLower();
         switch (choice)

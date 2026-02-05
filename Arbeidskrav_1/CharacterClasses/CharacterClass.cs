@@ -16,7 +16,15 @@ public abstract class CharacterClass
 
     private string _characterName;
     
-    private static Dictionary<string, int> _abilityScores;
+    private static Dictionary<string, int> _abilityScores = new()
+    {
+        { "Strength", 0 },
+        { "Intelligence", 0 },
+        { "Wisdom", 0 },
+        { "Dexterity", 0 },
+        { "Constitution", 0 },
+        { "Charisma", 0 }
+    };
 
 
     protected CharacterClass(string className, string primeRequisite, string characterName, int xpLevel2, int dice, int sides, Dictionary<string, int> abilityScores)
@@ -54,7 +62,7 @@ public abstract class CharacterClass
     {
         return "";
     }
-    protected static void DisplayCharacter(CharacterClass character, string hitPoints)
+    public static void DisplayCharacter(CharacterClass character, string hitPoints)
     {  
         var prScore = _abilityScores.FirstOrDefault(s => s.Key == character._primeRequisite);
     
