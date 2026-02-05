@@ -5,11 +5,11 @@ namespace Arbeidskrav_1.Generators;
 
 public abstract class CharacterGenerator
 {
-    public static CharacterClass GenerateClass(string classChoice)
+    public static CharacterClass GenerateClass(string? classChoice)
     {
         var charName = AnsiConsole.Ask<string>("[blue]Enter character name: [/]");
         
-        string choice = classChoice.ToLower();
+        string? choice = classChoice?.ToLower();
         switch (choice)
         {
             case "cleric":
@@ -27,9 +27,11 @@ public abstract class CharacterGenerator
             case "magic user":
                 MagicUser magicUser = new MagicUser(charName, CharacterClass.AbilityScores);
                 return magicUser;
-
+            
             default:
-                return null;
+                Console.WriteLine("Invalid choice");
+                classChoice = ChooseClass.Choose();
+                return GenerateClass(classChoice);
         }
     }
 }
