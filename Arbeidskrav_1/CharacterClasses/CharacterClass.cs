@@ -1,6 +1,6 @@
 using Spectre.Console;
 
-namespace Arbeidskrav_1;
+namespace Arbeidskrav_1.CharacterClasses;
 /// <summary>
 /// Creates a template for the derived character classes.
 /// </summary>
@@ -61,11 +61,22 @@ public abstract class CharacterClass(
     public static void DisplayCharacter(CharacterClass character, string hitPoints)
     {
         var prScore = _abilityScores.FirstOrDefault(s => s.Key == character._primeRequisite);
+        string panelText = $"\n[bold]Name:[/] {character._characterName}" +
+                           $"\n[bold]Class[/]: {character._className}" +
+                           $"\n[bold]Hit Points:[/] {hitPoints}";
         
-        Console.WriteLine($"\n---CHARACTER CREATED---" +
-                          $"\nName: {character._characterName}" +
-                          $"\nClass: {character._className}" +
-                          $"\n{hitPoints}");
+        var display = new Panel(panelText)
+          
+            .Header("[yellow]Character created[/]", Justify.Center)
+            .RoundedBorder()
+            .BorderColor(Color.Yellow)
+            .Border(BoxBorder.Ascii)
+            .Padding(2, 1)
+            .Expand();
+        
+        AnsiConsole.Write(display);
+        
+        
         
         Console.WriteLine("\nAbility Scores:");
         foreach (KeyValuePair<string, int> kvp in _abilityScores)
