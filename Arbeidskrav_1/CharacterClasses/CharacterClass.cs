@@ -52,13 +52,12 @@ public abstract class CharacterClass
     
     public static Dictionary<string, int> AbilityScores => _abilityScores;
 
-    
+
     /// <summary>
     /// Calculates Hit Points for given character class 
     /// </summary>
-    /// <param name="character"></param>
     /// <returns>Hit Points: x (xdx +/- x)</returns>
-    public virtual string ConstitutionModifier(CharacterClass character)
+    public virtual string ConstitutionModifier()
     {
         return "";
     }
@@ -82,6 +81,8 @@ public abstract class CharacterClass
                           $"\nXP for level 2: {character._xpLevel2}");
     }
 
-
-
+    public override string ToString()
+    {
+        return $"Character Class: {_className} - Character Name: {_characterName}";
+    }
 }
