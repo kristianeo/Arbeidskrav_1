@@ -11,7 +11,7 @@ public class AvailableClasses
     /// Calculates the highest and second-highest ability scores from the ability scores dictionary.
     /// Adds the ability names with their prime requisite and score in an available-classes dictionary.
     /// </summary>
-    public static void ClassSelector()
+    public static void ClassSelector() //TODO: fix it so this code can be accessed earlier for abilityscore
     {
         int highest = -1, secondHighest = -1;
 
