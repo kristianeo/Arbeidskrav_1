@@ -12,7 +12,7 @@ class Program
 
         AbilityScores.AbilityScoreGenerator();
         AvailableClasses.ClassSelector();
-        CharacterClass character = CharacterGenerator.GenerateClass(ChooseClass.Choose(), UserPrompts.ChooseCharacterName());
+        CharacterClass character = CharacterGenerator.GenerateClass(ChooseClass.Choose());
         character.DisplayCharacter(character.ConstitutionModifier());
         Console.WriteLine(character.ToString());
 

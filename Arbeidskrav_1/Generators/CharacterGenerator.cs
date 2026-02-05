@@ -1,11 +1,14 @@
 using Arbeidskrav_1.CharacterClasses;
+using Spectre.Console;
 
 namespace Arbeidskrav_1.Generators;
 
 public abstract class CharacterGenerator
 {
-    public static CharacterClass GenerateClass(string classChoice, string charName)
+    public static CharacterClass GenerateClass(string classChoice)
     {
+        var charName = AnsiConsole.Ask<string>("[blue]Enter character name: [/]");
+        
         string choice = classChoice.ToLower();
         switch (choice)
         {
