@@ -6,6 +6,7 @@ namespace Arbeidskrav_1.Generators;
 public class AvailableClasses
 {
     public static readonly Dictionary<string, Tuple<string, int>> AvailableClass = new();
+    private static List<int> _highestScores = [];
     
         /// <summary>
     /// Calculates the highest and second-highest ability scores from the ability scores dictionary.
@@ -13,25 +14,12 @@ public class AvailableClasses
     /// </summary>
     public static void ClassSelector() //TODO: fix it so this code can be accessed earlier for abilityscore
     {
-        int highest = -1, secondHighest = -1;
-
-        foreach (string score in CharacterClass.AbilityScores.Keys)
-        {
-            if (CharacterClass.AbilityScores[score] > highest)
-            {
-                secondHighest = highest;
-                highest = CharacterClass.AbilityScores[score];
-            }
-            else if (CharacterClass.AbilityScores[score] < highest && CharacterClass.AbilityScores[score] > secondHighest)
-            {
-                secondHighest = CharacterClass.AbilityScores[score];
-            }
-        }
+        
 
         foreach (KeyValuePair<string, int> kvp in CharacterClass.AbilityScores)
         {
-            if ((kvp.Value == highest && kvp.Key is not "Charisma" and not "Constitution") || 
-                (kvp.Value == secondHighest && kvp.Key is not "Charisma" and not "Constitution"))
+            if ((kvp.Value == _highestScores.Max() && kvp.Key is not "Charisma" and not "Constitution") || 
+                (kvp.Value == _highestScores.Min() && kvp.Key is not "Charisma" and not "Constitution"))
             {
                 string available = kvp.Key;
                 string chosen = "";
@@ -64,7 +52,26 @@ public class AvailableClasses
 
             AnsiConsole.MarkupLine("[green]Rerolled!![/]");
         }
-        
     }
-        //TODO: Make these into multiple methods, not one long one
+
+    public static void CalculateHighestScores()
+    {
+        int highest = -1, secondHighest = -1;
+
+        foreach (string score in CharacterClass.AbilityScores.Keys)
+        {
+            if (CharacterClass.AbilityScores[score] > highest)
+            {
+                secondHighest = highest;
+                highest = CharacterClass.AbilityScores[score];
+            }
+            else if (CharacterClass.AbilityScores[score] < highest && CharacterClass.AbilityScores[score] > secondHighest)
+            {
+                secondHighest = CharacterClass.AbilityScores[score];
+            }
+        }
+        _highestScores.Add(highest);
+        _highestScores.Add(secondHighest);
+    }
+
 }

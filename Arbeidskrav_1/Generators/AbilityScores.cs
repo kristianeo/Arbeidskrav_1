@@ -11,9 +11,10 @@ public abstract class AbilityScores
     /// Uses Average(), if average is less than or equal to 8
     /// the player gets a choice to reroll.
     /// </summary>
-    public static void AbilityScoreGenerator()
+    public static void AbilityScoreGenerator() // TODO: Add "roll ability scores"
     {
         TryAgain:
+        Console.Clear();
         foreach (string value in CharacterClass.AbilityScores.Keys)
         {
             CharacterClass.AbilityScores[value] = 0;
@@ -29,7 +30,7 @@ public abstract class AbilityScores
                        "\nWould you like to reroll? (y/n) ")
                 .AddChoices("Yes", "No");
             var selected = AnsiConsole.Prompt(prompt);
-            AnsiConsole.MarkupLineInterpolated($"\n[blue]You selected {selected} [/]");
+            AnsiConsole.MarkupLineInterpolated($"\n[blue]You selected[/] {selected} ");
             
             if (selected == "Yes")
             {
