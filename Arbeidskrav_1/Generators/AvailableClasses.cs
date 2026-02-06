@@ -14,6 +14,7 @@ public class AvailableClasses
     /// </summary>
     public static void ClassSelector()
     {
+        AvailableClass.Clear();
         foreach (KeyValuePair<string, int> kvp in CharacterClass.AbilityScores)
         {
             if (kvp.Key is "Charisma" or "Constitution")
@@ -48,6 +49,7 @@ public class AvailableClasses
 
     public static void CalculateHighestScores()
     {
+        _highestScores.Clear();
         int highest = 0, secondHighest = 0;
 
         foreach (var kvp in CharacterClass.AbilityScores)
