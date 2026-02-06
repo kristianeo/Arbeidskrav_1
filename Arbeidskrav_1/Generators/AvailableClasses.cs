@@ -50,7 +50,7 @@ public class AvailableClasses
     {
         int highest = 0, secondHighest = 0;
 
-        foreach (var kvp in CharacterClass.AbilityScores.TakeWhile(kvp => kvp.Key is not ("Charisma" or "Constitution")))
+        foreach (var kvp in CharacterClass.AbilityScores)
         {
             if (kvp.Value > highest)
             {
