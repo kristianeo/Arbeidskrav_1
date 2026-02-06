@@ -28,8 +28,8 @@ public abstract class CharacterGenerator
                 MagicUser magicUser = new MagicUser(charName, CharacterClass.AbilityScores);
                 return magicUser;
             
-            default:
-                Console.WriteLine("Invalid choice");
+            default: //This is never going to run
+                Console.WriteLine("Something went wrong.");
                 classChoice = ChooseClass.Choose();
                 return GenerateClass(classChoice);
         }
