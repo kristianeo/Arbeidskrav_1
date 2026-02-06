@@ -8,18 +8,19 @@ public class AvailableClasses
     public static readonly Dictionary<string, Tuple<string, int>> AvailableClass = new();
     private static List<int> _highestScores = [];
     
-        /// <summary>
+    /// <summary>
     /// Calculates the highest and second-highest ability scores from the ability scores dictionary.
     /// Adds the ability names with their prime requisite and score in an available-classes dictionary.
     /// </summary>
-    public static void ClassSelector() //TODO: fix it so this code can be accessed earlier for abilityscore
+    public static void ClassSelector()
     {
-        
-
         foreach (KeyValuePair<string, int> kvp in CharacterClass.AbilityScores)
         {
-            if ((kvp.Value == _highestScores.Max() && kvp.Key is not "Charisma" and not "Constitution") || 
-                (kvp.Value == _highestScores.Min() && kvp.Key is not "Charisma" and not "Constitution"))
+            if (kvp.Key is "Charisma" or "Constitution")
+            {
+                break;
+            }
+            if (kvp.Value == _highestScores.Max() || kvp.Value == _highestScores.Min())
             {
                 string available = kvp.Key;
                 string chosen = "";
@@ -43,35 +44,37 @@ public class AvailableClasses
                 AvailableClass.Add(chosen, requisiteScore);
             }
         }
-
-        if (AvailableClass.Count == 0)
-        {
-            AnsiConsole.WriteLine("You have no available classes based on your ability scores.");
-            AnsiConsole.Status()
-                .Start("Rerolling...", ctx => { Thread.Sleep(1500); });
-
-            AnsiConsole.MarkupLine("[green]Rerolled!![/]");
-        }
     }
 
     public static void CalculateHighestScores()
     {
-        int highest = -1, secondHighest = -1;
+        int highest = 0, secondHighest = 0;
 
-        foreach (string score in CharacterClass.AbilityScores.Keys)
+        foreach (var kvp in CharacterClass.AbilityScores.TakeWhile(kvp => kvp.Key is not ("Charisma" or "Constitution")))
         {
-            if (CharacterClass.AbilityScores[score] > highest)
+            if (kvp.Value > highest)
             {
                 secondHighest = highest;
-                highest = CharacterClass.AbilityScores[score];
+                highest = kvp.Value;
             }
-            else if (CharacterClass.AbilityScores[score] < highest && CharacterClass.AbilityScores[score] > secondHighest)
+            else if (kvp.Value < highest && kvp.Value > secondHighest)
             {
-                secondHighest = CharacterClass.AbilityScores[score];
+                secondHighest = kvp.Value;
             }
         }
         _highestScores.Add(highest);
         _highestScores.Add(secondHighest);
+    }
+
+    public static void NoAvailableClassesCheck()
+    {
+        if (_highestScores.Count != 0) return;
+        AnsiConsole.WriteLine("You have no available classes based on your ability scores.");
+        AnsiConsole.Status()
+            .Start("Rerolling...", ctx => { Thread.Sleep(1500); });
+
+        AnsiConsole.MarkupLine("[green]Rerolled!![/]");
+        AbilityScores.AbilityScoreGenerator();
     }
 
 }
