@@ -11,10 +11,6 @@ class Program
         
         AnsiConsole.MarkupLine("[green]✓ Build completed successfully[/]");
 
-        AbilityScores.AbilityScoreGenerator();
-        AvailableClasses.ClassSelector();
-        CharacterClass character = CharacterGenerator.GenerateClass(ChooseClass.Choose());
-
-        UserInterface.UserInterface.DisplayCharacter(character);
+        RunGenerator.Run();
     }
 }
