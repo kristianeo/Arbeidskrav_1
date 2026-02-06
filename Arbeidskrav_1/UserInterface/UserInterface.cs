@@ -58,6 +58,24 @@ public class UserInterface
                 .NoBorder());
   
         AnsiConsole.Write(grid);
+        
+        var prompt = new SelectionPrompt<string>()
+            .Title("\n[green]Would you like to create a new character?[/]")
+            .AddChoices("Yes", "No");
+        var selected = AnsiConsole.Prompt(prompt);
+        
+        if (selected == "Yes")
+        {
+            RunGenerator.Run();
+        }
+        else
+        {
+            Console.Clear();
+            AnsiConsole.MarkupLine("[blue]Goodbye![/]");
+            Thread.Sleep(1500);
+            Environment.Exit(0);
+        }
+        
 
         //TODO: Add option to create new character 
     }

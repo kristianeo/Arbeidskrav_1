@@ -11,14 +11,13 @@ public abstract class ChooseClass
     /// <returns>Chosen character class</returns>
     public static string Choose()
     {
-        var availableClasses = AvailableClasses.AvailableClass; 
-        var available = availableClasses.ToDictionary(kv => $"{kv.Key} {kv.Value}", kv =>  kv.Key);
-        if (availableClasses.Count == 1)
+        var available = AvailableClasses.AvailableClass.ToDictionary(kv => $"{kv.Key} {kv.Value}", kv =>  kv.Key);
+        if (available.Count == 1)
         {
-            var classChoice = availableClasses.Keys.ToList();
-            AnsiConsole.MarkupLine($"\n[bold]You have only one available class:[/] [blue]{Markup.Escape(classChoice[0])} [/]");
+            var classChoice = available.Keys.First();
+            AnsiConsole.MarkupLine($"\n[bold]You have only one available class:[/] [blue]{Markup.Escape(classChoice)} [/]");
             
-            return classChoice[0];
+            return available[classChoice];
         }
         else
         {
