@@ -15,7 +15,7 @@ public class UserInterface
     public static void DisplayCharacter(CharacterClass character)
     {
         Console.Clear();
-        var prScore = CharacterClass.AbilityScores.FirstOrDefault(s => s.Key == character.PrimeRequisite);
+        var prScore = character.GetPrimeRequisite();
         var abilityValues = CharacterClass.AbilityScores.Values.ToList();
         
         AnsiConsole.Status()
@@ -41,8 +41,8 @@ public class UserInterface
   
         grid.AddRow(new Markup("[bold]Character Name: [/]"), new Markup(character.CharacterName));
         grid.AddRow(new Markup("[bold]Class: [/]"), new Markup(character.ClassName));
-        grid.AddRow(new Markup("[bold]Hit Points: [/]"), new Markup(character.ConstitutionModifier()));
-        grid.AddRow(new Markup("[bold]Prime Requisite: [/]"), new Markup(character.PrimeRequisite + " (Modifier " + Modifier.Modify(prScore.Value) + ")"));
+        grid.AddRow(new Markup("[bold]Hit Points: [/]"), new Markup(character.GetHitPoints()));
+        grid.AddRow(new Markup("[bold]Prime Requisite: [/]"), new Markup(prScore.Item1 + " (Modifier " + Modifier.Modify(prScore.Item2) + ")"));
         grid.AddRow(new Markup("[bold]XP for level 2: [/]"), new Markup( $"{character.XpLevel2}"));
         grid.AddRow(
             new Markup("[bold]Ability Scores: [/]"),
@@ -76,8 +76,7 @@ public class UserInterface
             Environment.Exit(0);
         }
         
-
-        //TODO: Add option to create new character 
+        
     }
     public static void DisplayAbilityScores()
     {

@@ -12,8 +12,6 @@ public abstract class CharacterClass
 
     private string _className;
 
-    private string _primeRequisite;
-
     private string _characterName;
     
     private static Dictionary<string, int> _abilityScores = new()
@@ -27,13 +25,12 @@ public abstract class CharacterClass
     };
 
 
-    protected CharacterClass(string className, string primeRequisite, string characterName, int xpLevel2, int dice, int sides, Dictionary<string, int> abilityScores)
+    protected CharacterClass(string className, string characterName, int xpLevel2, int dice, int sides, Dictionary<string, int> abilityScores)
     {
         _dice = dice;
         _sides = sides;
         _xpLevel2 = xpLevel2;
         _className = className;
-        _primeRequisite = primeRequisite;
         _characterName = characterName;
         _abilityScores =  abilityScores;
     }
@@ -46,8 +43,6 @@ public abstract class CharacterClass
 
     public string ClassName => _className;
 
-    public string PrimeRequisite => _primeRequisite;
-
     public string CharacterName => _characterName;
     
     public static Dictionary<string, int> AbilityScores => _abilityScores;
@@ -57,7 +52,7 @@ public abstract class CharacterClass
     /// Calculates Hit Points for given character class 
     /// </summary>
     /// <returns>Hit Points: x (xdx +/- x)</returns>
-    protected string GetHitPoints()
+    public string GetHitPoints()
     {
         var constitutionScore = AbilityScores.FirstOrDefault(s => s.Key == "Constitution");
         int modifier = short.Parse(Modifier.Modify(constitutionScore.Value));
@@ -72,8 +67,7 @@ public abstract class CharacterClass
     
     public void DisplayCharacter()
     {  
-        var prScore = _abilityScores.FirstOrDefault(s => s.Key == _primeRequisite);
-    
+        var primeRequisite = GetPrimeRequisite();
         Console.WriteLine($"\n---CHARACTER CREATED---" +
                           $"\nName: {_characterName}" +
                           $"\nClass: {_className}" +
@@ -85,15 +79,15 @@ public abstract class CharacterClass
             Console.WriteLine($"{kvp.Key}: {kvp.Value}");
         }
 
-        Console.WriteLine($"\nPrime Requisite: {_primeRequisite} ({prScore.Value}) - " +
-                          $"Modifier: {Modifier.Modify(prScore.Value)}" +
+        Console.WriteLine($"\nPrime Requisite: {primeRequisite.Item1} ({primeRequisite.Item2}) - " +
+                          $"Modifier: {Modifier.Modify(primeRequisite.Item2)}" +
                           $"\nXP for level 2: {_xpLevel2}");
     }
+
+    public abstract Tuple<string, int> GetPrimeRequisite();
 
     public override string ToString()
     {
         return $"Character Class: {_className} - Character Name: {_characterName}";
     }
 }
-
-// TODO: override prime requisite and hit points in inherited classes ??????????
