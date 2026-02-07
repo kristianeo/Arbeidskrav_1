@@ -24,32 +24,32 @@ public class AvailableClasses
             if (kvp.Value == _highestScores.Max() || kvp.Value == _highestScores.Min())
             {
                 string available = kvp.Key;
-                string chosen = "";
+                string availableClass = "";
                 Tuple<string, int> requisiteScore = new Tuple<string, int>(kvp.Key, kvp.Value);
                 switch (available)
                 {
                     case "Wisdom":
-                        chosen = "Cleric";
+                        availableClass = "Cleric";
                         break;
                     case "Strength":
-                        chosen = "Fighter";
+                        availableClass = "Fighter";
                         break;
                     case "Intelligence":
-                        chosen = "Magic User";
+                        availableClass = "Magic User";
                         break;
                     case "Dexterity":
-                        chosen = "Thief";
+                        availableClass = "Thief";
                         break;
                 }
 
-                AvailableClass.Add(chosen, requisiteScore);
+                AvailableClass.Add(availableClass, requisiteScore);
             }
         }
     }
 
     public static void CalculateHighestScores()
     {
-        _highestScores.Clear();
+        _highestScores.Clear(); //Clears list when creating new character
         int highest = 0, secondHighest = 0;
 
         foreach (var kvp in CharacterClass.AbilityScores)
