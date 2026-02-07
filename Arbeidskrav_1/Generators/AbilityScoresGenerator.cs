@@ -49,8 +49,6 @@ public abstract class AbilityScoresGenerator
         }
         
     }
-        
-   // TODO: add separate method for values below average 
     public static int Average(Dictionary<string, int> dictionary)
     {
         int total = dictionary.Keys.Sum(value => dictionary[value]);

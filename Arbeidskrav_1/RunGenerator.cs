@@ -7,11 +7,13 @@ public class RunGenerator
 {
     public static void Run()
     {
-        AbilityScores.AbilityScoreGenerator();
+        AbilityScoresGenerator.GenerateAbilityScores();
         AvailableClasses.CalculateHighestScores();
-        AvailableClasses.NoAvailableClassesCheck();
         AvailableClasses.ClassSelector();
+        AvailableClasses.NoAvailableClassesCheck();
         CharacterClass character = CharacterGenerator.GenerateClass(ChooseClass.Choose());
+        
+        character.DisplayCharacter();
 
         UserInterface.UserInterface.DisplayCharacter(character);
     }
