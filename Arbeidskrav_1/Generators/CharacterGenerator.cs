@@ -7,8 +7,7 @@ public abstract class CharacterGenerator
 {
     public static CharacterClass GenerateClass(string? classChoice)
     {
-        var charName = AnsiConsole.Ask<string>("[blue]Enter character name: [/]");
-        
+        string charName = GetCharacterName();
         string? choice = classChoice?.ToLower();
         switch (choice)
         {
@@ -33,5 +32,27 @@ public abstract class CharacterGenerator
                 classChoice = ChooseClass.Choose();
                 return GenerateClass(classChoice);
         }
+    }
+
+    private static string GetCharacterName()
+    {
+        AskName:
+        var charName = AnsiConsole.Ask<string>("[blue]Enter character name: [/]");
+    
+        if (charName == "" || charName.Length < 3 || charName.Length > 15)
+        {
+            AnsiConsole.MarkupLine("[red]Character name must be between 3 and 15 characters long.[/]");
+            goto AskName;
+        }
+
+        foreach (char item in charName)
+        {                        
+            if (!char.IsAsciiLetter(item))
+            {
+                AnsiConsole.MarkupLine("[red]Character name can only contain letters A-Z[/]");
+                goto AskName;
+            }
+        }
+        return charName;
     }
 }
