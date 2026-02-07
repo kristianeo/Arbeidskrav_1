@@ -70,13 +70,12 @@ public class AvailableClasses
 
     public static void NoAvailableClassesCheck()
     {
-        if (_highestScores.Count != 0) return;
+        if (AvailableClass.Count != 0) return;
         AnsiConsole.WriteLine("You have no available classes based on your ability scores.");
         AnsiConsole.Status()
             .Start("Rerolling...", ctx => { Thread.Sleep(1500); });
 
         AnsiConsole.MarkupLine("[green]Rerolled!![/]");
-        AbilityScoresGenerator.GenerateAbilityScores();
+        RunGenerator.Run();
     }
-
 }
