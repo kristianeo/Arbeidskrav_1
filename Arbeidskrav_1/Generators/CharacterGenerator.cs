@@ -39,7 +39,7 @@ public abstract class CharacterGenerator
         AskName:
         var charName = AnsiConsole.Ask<string>("[blue]Enter character name: [/]");
     
-        if (charName == "" || charName.Length < 3 || charName.Length > 15)
+        if (charName.Length is < 3 or > 15)
         {
             AnsiConsole.MarkupLine("[red]Character name must be between 3 and 15 characters long.[/]");
             goto AskName;
