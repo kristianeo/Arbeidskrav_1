@@ -76,7 +76,7 @@ public class AvailableClasses
             .Start("Rerolling...", ctx => { Thread.Sleep(1500); });
 
         AnsiConsole.MarkupLine("[green]Rerolled!![/]");
-        AbilityScores.AbilityScoreGenerator();
+        AbilityScoresGenerator.GenerateAbilityScores();
     }
 
 }

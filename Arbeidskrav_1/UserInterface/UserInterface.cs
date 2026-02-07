@@ -81,7 +81,7 @@ public class UserInterface
     public static void DisplayAbilityScores()
     {
         var abilityScores = CharacterClass.AbilityScores;
-        int average = AbilityScores.Average(abilityScores);
+        int average = AbilityScoresGenerator.Average(abilityScores);
         var abilityKeys = abilityScores.Keys.ToList();
         var abilityValues = abilityScores.Values.ToList();
         var chart = new BarChart()

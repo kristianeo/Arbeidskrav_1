@@ -3,7 +3,7 @@ using Spectre.Console;
 
 namespace Arbeidskrav_1.Generators;
 
-public abstract class AbilityScores
+public abstract class AbilityScoresGenerator
 {
    /// <summary>
     /// Generates ability score per ability by rolling 3d6.
@@ -11,7 +11,7 @@ public abstract class AbilityScores
     /// Uses Average(), if average is less than or equal to 8
     /// the player gets a choice to reroll.
     /// </summary>
-    public static void AbilityScoreGenerator() // TODO: Add "roll ability scores"/view characters (after DB implement)
+    public static void GenerateAbilityScores() // TODO: Add "roll ability scores"/view characters (after DB implement)
     {
         TryAgain:
         Console.Clear();
@@ -54,4 +54,5 @@ public abstract class AbilityScores
         int average = total / dictionary.Count;
         return average;
     }
+  
 }
