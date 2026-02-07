@@ -20,7 +20,6 @@ public abstract class CharacterClass
         { "Charisma", 0 }
     };
 
-
     protected CharacterClass(string className, string characterName, int xpLevel2, Dictionary<string, int> abilityScores)
     {
         _xpLevel2 = xpLevel2;
@@ -37,13 +36,15 @@ public abstract class CharacterClass
     
     public static Dictionary<string, int> AbilityScores => _abilityScores;
 
-
     /// <summary>
     /// Calculates Hit Points for given character class 
     /// </summary>
-    /// <returns>Hit Points: x (xdx +/- x)</returns>
+    /// <returns>*hit points* (xdx +/- x)</returns>
     public abstract string GetHitPoints();
     
+    /// <summary>
+    /// Displays stats for chosen character
+    /// </summary>
     public void DisplayCharacter()
     {  
         var primeRequisite = GetPrimeRequisite();
@@ -62,7 +63,11 @@ public abstract class CharacterClass
                           $"Modifier: {Modifier.Modify(primeRequisite.Item2)}" +
                           $"\nXP for level 2: {_xpLevel2}");
     }
-
+    
+    /// <summary>
+    /// Shows Prime requisite for class and calculates modifier using Modifier class
+    /// </summary>
+    /// <returns>Tuple of prime requisite name and score</returns>
     public abstract Tuple<string, int> GetPrimeRequisite();
 
     public override string ToString()
