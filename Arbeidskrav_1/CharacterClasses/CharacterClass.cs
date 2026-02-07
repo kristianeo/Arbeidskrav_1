@@ -57,7 +57,7 @@ public abstract class CharacterClass
     /// Calculates Hit Points for given character class 
     /// </summary>
     /// <returns>Hit Points: x (xdx +/- x)</returns>
-    public string ConstitutionModifier()
+    protected string GetHitPoints()
     {
         var constitutionScore = AbilityScores.FirstOrDefault(s => s.Key == "Constitution");
         int modifier = short.Parse(Modifier.Modify(constitutionScore.Value));
@@ -69,14 +69,15 @@ public abstract class CharacterClass
 
         return $"{hitPoints} ({Dice}d{Sides} {Modifier.Modify(constitutionScore.Value)})";
     }
-    public void DisplayCharacter(string hitPoints)
+    
+    public void DisplayCharacter()
     {  
         var prScore = _abilityScores.FirstOrDefault(s => s.Key == _primeRequisite);
     
         Console.WriteLine($"\n---CHARACTER CREATED---" +
                           $"\nName: {_characterName}" +
                           $"\nClass: {_className}" +
-                          $"\nHit Points: {hitPoints}");
+                          $"\nHit Points: {GetHitPoints()}");
     
         Console.WriteLine("\nAbility Scores:");
         foreach (KeyValuePair<string, int> kvp in _abilityScores)
@@ -94,3 +95,5 @@ public abstract class CharacterClass
         return $"Character Class: {_className} - Character Name: {_characterName}";
     }
 }
+
+// TODO: override prime requisite and hit points in inherited classes ??????????
