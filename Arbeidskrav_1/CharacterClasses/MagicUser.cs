@@ -1,8 +1,21 @@
 namespace Arbeidskrav_1.CharacterClasses;
 
 public class MagicUser(string charName, Dictionary<string, int> abilityScores) :
-    CharacterClass("Magic User", charName, 2500, 1, 4, abilityScores)
+    CharacterClass("Magic User", charName, 2500, abilityScores)
 {
+    public override string GetHitPoints()
+    {
+        var constitutionScore = AbilityScores.FirstOrDefault(s => s.Key == "Constitution");
+        int modifier = short.Parse(Modifier.Modify(constitutionScore.Value));
+        int hitPoints = DiceRoll.RollDice(1, 4) - modifier;
+        if (hitPoints < 1)
+        {
+            hitPoints = 1;
+        }
+
+        return $"{hitPoints} (1d4 {Modifier.Modify(constitutionScore.Value)})";
+    }
+
     public override Tuple<string, int> GetPrimeRequisite()
     {
         string primerequisite = "Intelligence";

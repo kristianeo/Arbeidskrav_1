@@ -4,10 +4,6 @@ namespace Arbeidskrav_1.CharacterClasses;
 
 public abstract class CharacterClass
 {
-    private int _dice;
-
-    private int _sides;
-
     private int _xpLevel2;
 
     private string _className;
@@ -25,19 +21,13 @@ public abstract class CharacterClass
     };
 
 
-    protected CharacterClass(string className, string characterName, int xpLevel2, int dice, int sides, Dictionary<string, int> abilityScores)
+    protected CharacterClass(string className, string characterName, int xpLevel2, Dictionary<string, int> abilityScores)
     {
-        _dice = dice;
-        _sides = sides;
         _xpLevel2 = xpLevel2;
         _className = className;
         _characterName = characterName;
         _abilityScores =  abilityScores;
     }
-
-    public int Dice => _dice;
-
-    public int Sides => _sides;
 
     public int XpLevel2 => _xpLevel2;
 
@@ -52,18 +42,7 @@ public abstract class CharacterClass
     /// Calculates Hit Points for given character class 
     /// </summary>
     /// <returns>Hit Points: x (xdx +/- x)</returns>
-    public string GetHitPoints()
-    {
-        var constitutionScore = AbilityScores.FirstOrDefault(s => s.Key == "Constitution");
-        int modifier = short.Parse(Modifier.Modify(constitutionScore.Value));
-        int hitPoints = DiceRoll.RollDice(Dice, Sides) - modifier;
-        if (hitPoints < 1)
-        {
-            hitPoints = 1;
-        }
-
-        return $"{hitPoints} ({Dice}d{Sides} {Modifier.Modify(constitutionScore.Value)})";
-    }
+    public abstract string GetHitPoints();
     
     public void DisplayCharacter()
     {  
