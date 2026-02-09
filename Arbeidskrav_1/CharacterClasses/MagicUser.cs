@@ -7,7 +7,7 @@ public class MagicUser(string charName, Dictionary<string, int> abilityScores) :
     {
         var constitutionScore = AbilityScores.FirstOrDefault(s => s.Key == "Constitution");
         int modifier = short.Parse(Modifier.Modify(constitutionScore.Value));
-        int hitPoints = DiceRoll.RollDice(1, 4) - modifier;
+        int hitPoints = DiceRoll.RollDice("1d4") - modifier;
         if (hitPoints < 1)
         {
             hitPoints = 1;

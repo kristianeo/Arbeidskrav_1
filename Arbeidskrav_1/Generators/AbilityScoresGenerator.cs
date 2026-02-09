@@ -17,7 +17,7 @@ public abstract class AbilityScoresGenerator
         foreach (string value in CharacterClass.AbilityScores.Keys)
         {
             CharacterClass.AbilityScores[value] = 0;
-            CharacterClass.AbilityScores[value] += DiceRoll.RollDice(3, 6);
+            CharacterClass.AbilityScores[value] += DiceRoll.RollDice("3d6");
         }
 
         UserInterface.UserInterface.DisplayAbilityScores();
