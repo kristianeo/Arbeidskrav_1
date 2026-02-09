@@ -39,7 +39,7 @@ public abstract class CharacterClass
     /// <summary>
     /// Calculates Hit Points for given character class 
     /// </summary>
-    /// <returns>*hit points* (xdx +/- x)</returns>
+    /// <returns>*hit points* (xdy +/- z)</returns>
     public abstract string GetHitPoints();
     
     /// <summary>
@@ -65,7 +65,7 @@ public abstract class CharacterClass
     }
     
     /// <summary>
-    /// Shows Prime requisite for class and calculates modifier using Modifier class
+    /// Shows Prime requisite for chosen class and calculates modifier using Modifier class
     /// </summary>
     /// <returns>Tuple of prime requisite name and score</returns>
     public abstract Tuple<string, int> GetPrimeRequisite();
