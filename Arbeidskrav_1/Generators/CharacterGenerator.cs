@@ -8,7 +8,7 @@ public abstract class CharacterGenerator
 {
     public static CharacterClass GenerateClass(string? classChoice)
     {
-        string charName = GetCharacterName();
+        string charName = CharacterNameGenerator.GetCharacterName();
         string? choice = classChoice?.ToLower();
         switch (choice)
         {
@@ -34,46 +34,4 @@ public abstract class CharacterGenerator
                 return GenerateClass(classChoice);
         }
     }
-
-    private static string GetCharacterName()
-    {
-        AskName:
-        var charName = AnsiConsole.Ask<string>("[bold]Enter character name: [/]");
-        
-        if (CharacterExists(charName))
-        {
-            AnsiConsole.MarkupLine("[red]The character name is already in use.[/]");
-            goto AskName;
-        }
-        
-        if (charName.Length is < 3 or > 35)
-        {
-            AnsiConsole.MarkupLine("[red]Character name must be between 3 and 15 characters long.[/]");
-            goto AskName;
-        }
-
-        foreach (char item in charName)
-        {                        
-            if (!char.IsAsciiLetter(item))
-            {
-                AnsiConsole.MarkupLine("[red]Character name can only contain letters A-Z[/]");
-                goto AskName;
-            }
-        }
-        return charName;
-    } 
-    private static bool CharacterExists(string name)
-    {
-        const string filePath = 
-            @"C:\Users\olsen\OneDrive\Dokumenter\GitHub\Arbeidskrav_1\Arbeidskrav_1\CharacterRepository\CharacterRepo.json";
-        string json = File.ReadAllText(filePath);
-        
-        if (!File.Exists(filePath) || string.IsNullOrWhiteSpace(json))
-            return false;
-
-        var characters = JsonSerializer.Deserialize<List<Dictionary<string, string>>>(json);
-
-        return characters != null && characters.Any(c => c.ContainsValue(name));
-    }
-    
 }

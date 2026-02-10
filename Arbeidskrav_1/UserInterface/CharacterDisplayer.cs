@@ -6,7 +6,7 @@ using Spectre.Console;
 
 namespace Arbeidskrav_1.UserInterface;
 
-public class CharacterDisplayer
+public abstract class CharacterDisplayer
 {
     /// <summary>
     /// Displays stats for chosen character.
