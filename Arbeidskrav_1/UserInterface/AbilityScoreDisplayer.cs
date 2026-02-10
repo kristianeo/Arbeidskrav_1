@@ -6,10 +6,13 @@ namespace Arbeidskrav_1.UserInterface;
 
 public abstract class AbilityScoreDisplayer
 {
+    /// <summary>
+    /// Displays ability scores after they are rolled.
+    /// </summary>
     public static void DisplayAbilityScores()
     {
         var abilityScores = CharacterClass.AbilityScores;
-        int average = AbilityScoresGenerator.Average(abilityScores);
+        int average = AverageGenerator.Average(abilityScores);
         var abilityKeys = abilityScores.Keys.ToList();
         var abilityValues = abilityScores.Values.ToList();
         var chart = new BarChart()

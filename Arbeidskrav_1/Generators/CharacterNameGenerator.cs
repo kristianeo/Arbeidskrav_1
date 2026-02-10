@@ -4,6 +4,10 @@ namespace Arbeidskrav_1.Generators;
 
 public abstract class CharacterNameGenerator
 {
+    /// <summary>
+    /// Lets the user enter a character name. Prompts for a valid input until given.
+    /// </summary>
+    /// <returns>Valid name chosen by player</returns>
     public static string GetCharacterName()
     {
         AskName:

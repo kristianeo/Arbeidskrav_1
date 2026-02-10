@@ -8,8 +8,8 @@ public abstract class AbilityScoresGenerator
     /// <summary>
     /// Generates ability score per ability by rolling 3d6.
     /// Minimum value 3, maximum value 18.
-    /// Uses Average(), if average is less than or equal to 8
-    /// the player gets a choice to reroll.
+    /// Calculates average score using Average(), if average is less than or equal to 8
+    /// the player gets a choice to reroll by calling UnderAverageHandler().
     /// </summary>
     public static void GenerateAbilityScores()
     {
@@ -25,29 +25,13 @@ public abstract class AbilityScoresGenerator
         }
 
         UserInterface.AbilityScoreDisplayer.DisplayAbilityScores();
-        if (Average(CharacterClass.AbilityScores) <= 8)
+        if (AverageGenerator.Average(CharacterClass.AbilityScores) <= 8)
         {
-            UnderAverageHandler();
+            UnderAverageHandler.UnderAverage();
         }
     }
 
-    private static void UnderAverageHandler()
-    {
-        var prompt = new SelectionPrompt<string>()
-            .Title("\n[bold red]Your ability scores are below average... [/]" +
-                   "\nWould you like to reroll?")
-            .AddChoices("Yes", "No");
-        var selected = AnsiConsole.Prompt(prompt);
 
-        if (selected != "Yes") return;
-        GenerateAbilityScores();
-
-    }
-    public static int Average(Dictionary<string, int> dictionary)
-    {
-        int total = dictionary.Keys.Sum(value => dictionary[value]);
-        int average = total / dictionary.Count;
-        return average;
-    }
+   
   
 }

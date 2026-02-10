@@ -2,6 +2,13 @@ namespace Arbeidskrav_1.CharacterClasses;
 
 public class DiceRoll
 {
+    /// <summary>
+    /// Generates a random number within the limitations of the die sides(inclusive),
+    /// as many times as the number of dice, and adds them.
+    /// </summary>
+    /// <param name="input">dice "xdy"</param>
+    /// <returns></returns>
+    /// <exception cref="InvalidDataException"></exception>
     public static int RollDice(string input)
     {
         if (!input.ToLower().Contains('d'))

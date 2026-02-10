@@ -6,6 +6,10 @@ namespace Arbeidskrav_1.UserInterface;
 
 public abstract class CreateOrSearch
 {
+    /// <summary>
+    /// Prompts the player what to do next. Gets called after creating a character or searching
+    /// the repository.
+    /// </summary>
     public static void Choice()
     {
         var prompt = new SelectionPrompt<string>()

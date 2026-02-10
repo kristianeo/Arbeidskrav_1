@@ -2,8 +2,12 @@ using Spectre.Console;
 
 namespace Arbeidskrav_1.UserInterface;
 
-public class Welcome
+public abstract class Welcome
 {
+    /// <summary>
+    /// Shows the starting screen. The player gets to chose if they want to
+    /// make a new character or search in the repository.
+    /// </summary>
     public static void WelcomeMessage()
     {
         Console.Clear();

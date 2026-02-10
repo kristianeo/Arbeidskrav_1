@@ -2,6 +2,11 @@ namespace Arbeidskrav_1.CharacterClasses;
 
 public class Modifier
 {
+    /// <summary>
+    /// Returns the modifier for the chosen Ability score.
+    /// </summary>
+    /// <param name="num"></param>
+    /// <returns></returns>
     public static string Modify(int num)
     {
         string modifier = num switch

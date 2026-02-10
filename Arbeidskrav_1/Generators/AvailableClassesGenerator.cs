@@ -9,8 +9,9 @@ public class AvailableClassesGenerator
     private static List<int> _highestScores = [];
     
     /// <summary>
-    /// Calculates the highest and second-highest ability scores from the ability scores dictionary.
-    /// Adds the ability names with their prime requisite and score in an available-classes dictionary.
+    /// Uses CalculateHighScores() to find the two highest ability scores.
+    /// Adds the valid class names and their prime requisite and score in an available-classes dictionary.
+    /// Checks if there is no valid class using NoAvailableClassesCheck().
     /// </summary>
     public static void AvailableClasses()
     {
@@ -44,9 +45,10 @@ public class AvailableClassesGenerator
                 
             AvailableClass.Add(availableClass, requisiteScore);
         }
+        NoAvailableClassesCheck();
     }
 
-    public static List<int> CalculateHighestScores()
+    private static List<int> CalculateHighestScores()
     {
         _highestScores.Clear(); //Clears list when creating new character
         int highest = 0, secondHighest = 0;
@@ -68,10 +70,10 @@ public class AvailableClassesGenerator
         return _highestScores;
     }
 
-    public static void NoAvailableClassesCheck()
+    private static void NoAvailableClassesCheck()
     {
         if (AvailableClass.Count != 0) return;
         AnsiConsole.WriteLine("You have no available classes based on your ability scores.");
-        RunGenerator.Run();
+        RunGenerator.Run(); //Starts rolling new ability scores
     }
 }

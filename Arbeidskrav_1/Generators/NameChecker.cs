@@ -4,6 +4,11 @@ namespace Arbeidskrav_1.Generators;
 
 public abstract class NameChecker
 {
+    /// <summary>
+    /// Returns true if the given character name already exists in the character repository.
+    /// </summary>
+    /// <param name="name"></param>
+    /// <returns></returns>
     public static bool CharacterExists(string name)
     {
         const string filePath = 

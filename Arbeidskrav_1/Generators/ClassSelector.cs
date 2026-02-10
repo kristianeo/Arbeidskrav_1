@@ -5,8 +5,8 @@ namespace Arbeidskrav_1.Generators;
 public abstract class ClassSelector
 {
     /// <summary>
-    /// Choose a class from available classes.
-    /// If there is only one available class, it chooses for the player.
+    /// Player chooses a class from available classes listed in the AvailableClass dict.
+    /// If there is only one available class, this is chosen for the player.
     /// </summary>
     /// <returns>Chosen character class</returns>
     public static string ChooseClass()

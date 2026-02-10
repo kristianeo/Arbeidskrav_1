@@ -6,6 +6,11 @@ namespace Arbeidskrav_1.Generators;
 
 public abstract class CharacterGenerator
 {
+    /// <summary>
+    /// Generates a new instance of the class chosen by the player.
+    /// </summary>
+    /// <param name="classChoice"></param>
+    /// <returns></returns>
     public static CharacterClass GenerateClass(string? classChoice)
     {
         string charName = CharacterNameGenerator.GetCharacterName();
