@@ -30,7 +30,7 @@ public abstract class CharacterGenerator
             
             default: //This is never going to run
                 Console.WriteLine("Something went wrong.");
-                classChoice = ChooseClass.Choose();
+                classChoice = ClassSelector.ChooseClass();
                 return GenerateClass(classChoice);
         }
     }
@@ -42,11 +42,11 @@ public abstract class CharacterGenerator
         
         if (CharacterExists(charName))
         {
-            AnsiConsole.MarkupLine("[red]The character name is already used.[/]");
+            AnsiConsole.MarkupLine("[red]The character name is not available.[/]");
             goto AskName;
         }
         
-        if (charName.Length is < 3 or > 15)
+        if (charName.Length is < 3 or > 35)
         {
             AnsiConsole.MarkupLine("[red]Character name must be between 3 and 15 characters long.[/]");
             goto AskName;

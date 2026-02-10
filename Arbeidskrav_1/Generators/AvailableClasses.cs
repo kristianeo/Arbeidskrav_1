@@ -6,7 +6,7 @@ namespace Arbeidskrav_1.Generators;
 public class AvailableClasses
 {
     public static readonly Dictionary<string, Tuple<string, int>> AvailableClass = new();
-    private static List<int> _highestScores = [];
+    private static List<int> highestScores = [];
     
     /// <summary>
     /// Calculates the highest and second-highest ability scores from the ability scores dictionary.
@@ -14,42 +14,41 @@ public class AvailableClasses
     /// </summary>
     public static void ClassSelector()
     {
+        List<int> highScores = CalculateHighestScores();
+        
         AvailableClass.Clear();
         foreach (KeyValuePair<string, int> kvp in CharacterClass.AbilityScores)
         {
-            if (kvp.Key is "Charisma" or "Constitution")
-            {
-                break;
-            }
-            if (kvp.Value == _highestScores.Max() || kvp.Value == _highestScores.Min())
-            {
-                string available = kvp.Key;
-                string availableClass = "";
-                Tuple<string, int> requisiteScore = new Tuple<string, int>(kvp.Key, kvp.Value);
-                switch (available)
-                {
-                    case "Wisdom":
-                        availableClass = "Cleric";
-                        break;
-                    case "Strength":
-                        availableClass = "Fighter";
-                        break;
-                    case "Intelligence":
-                        availableClass = "Magic User";
-                        break;
-                    case "Dexterity":
-                        availableClass = "Thief";
-                        break;
-                }
+            if (kvp.Key is "Charisma" or "Constitution") continue;
 
-                AvailableClass.Add(availableClass, requisiteScore);
+            if (kvp.Value != highScores.Max() && kvp.Value != highScores.Min()) continue;
+            
+            string available = kvp.Key;
+            string availableClass = "";
+            Tuple<string, int> requisiteScore = new Tuple<string, int>(kvp.Key, kvp.Value);
+            switch (available)
+            {
+                case "Wisdom":
+                    availableClass = "Cleric";
+                    break;
+                case "Strength":
+                    availableClass = "Fighter";
+                    break;
+                case "Intelligence":
+                    availableClass = "Magic User";
+                    break;
+                case "Dexterity":
+                    availableClass = "Thief";
+                    break;
             }
+                
+            AvailableClass.Add(availableClass, requisiteScore);
         }
     }
 
-    public static void CalculateHighestScores()
+    public static List<int> CalculateHighestScores()
     {
-        _highestScores.Clear(); //Clears list when creating new character
+        highestScores.Clear(); //Clears list when creating new character
         int highest = 0, secondHighest = 0;
 
         foreach (var kvp in CharacterClass.AbilityScores)
@@ -64,18 +63,15 @@ public class AvailableClasses
                 secondHighest = kvp.Value;
             }
         }
-        _highestScores.Add(highest);
-        _highestScores.Add(secondHighest);
+        highestScores.Add(highest);
+        highestScores.Add(secondHighest);
+        return highestScores;
     }
 
     public static void NoAvailableClassesCheck()
     {
         if (AvailableClass.Count != 0) return;
         AnsiConsole.WriteLine("You have no available classes based on your ability scores.");
-        AnsiConsole.Status()
-            .Start("Rerolling...", ctx => { Thread.Sleep(1500); });
-
-        AnsiConsole.MarkupLine("[green]Rerolled!![/]");
         RunGenerator.Run();
     }
 }

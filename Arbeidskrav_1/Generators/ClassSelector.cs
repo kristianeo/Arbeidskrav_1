@@ -2,20 +2,20 @@ using Spectre.Console;
 
 namespace Arbeidskrav_1.Generators;
 
-public abstract class ChooseClass
+public abstract class ClassSelector
 {
     /// <summary>
     /// Choose a class from available classes.
     /// If there is only one available class, it chooses for the player.
     /// </summary>
     /// <returns>Chosen character class</returns>
-    public static string Choose()
+    public static string ChooseClass()
     {
         var available = AvailableClasses.AvailableClass.ToDictionary(kv => $"{kv.Key} {kv.Value}", kv =>  kv.Key);
         if (available.Count == 1)
         {
             var classChoice = available.Keys.First();
-            AnsiConsole.MarkupLine($"\n[bold]You have only one available class:[/] [blue]{Markup.Escape(classChoice)} [/]");
+            AnsiConsole.MarkupLine($"\n[bold]You have only one available class:[/] [blue]{Markup.Escape(classChoice)}[/]");
             
             return available[classChoice];
         }
@@ -26,7 +26,7 @@ public abstract class ChooseClass
                 .AddChoices(available.Keys);
             var selected = AnsiConsole.Prompt(prompt);
             var classChoice = available[selected];
-            AnsiConsole.MarkupLineInterpolated($"\n[blue]You selected {selected} [/]");
+            AnsiConsole.MarkupLineInterpolated($"\n[bold]You selected [/][blue]{selected} [/]");
             
             return classChoice;
         }

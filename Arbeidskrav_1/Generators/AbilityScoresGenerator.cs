@@ -11,9 +11,13 @@ public abstract class AbilityScoresGenerator
     /// Uses Average(), if average is less than or equal to 8
     /// the player gets a choice to reroll.
     /// </summary>
-    public static void GenerateAbilityScores() // TODO: Add "roll ability scores"/view characters (after DB implement)
+    public static void GenerateAbilityScores()
     {
         Console.Clear();
+        AnsiConsole.Status()
+            .Spinner(Spinner.Known.Arrow)
+            .Start("Rolling ability scores...", ctx => { Thread.Sleep(1500); });
+
         foreach (string value in CharacterClass.AbilityScores.Keys)
         {
             CharacterClass.AbilityScores[value] = 0;
@@ -34,20 +38,10 @@ public abstract class AbilityScoresGenerator
                    "\nWould you like to reroll?")
             .AddChoices("Yes", "No");
         var selected = AnsiConsole.Prompt(prompt);
-        AnsiConsole.MarkupLineInterpolated($"\n[blue]You selected[/] {selected} ");
 
-        if (selected == "Yes")
-        {
-            Console.Clear();
-            AnsiConsole.Status()
-                .Spinner(Spinner.Known.Arrow)
-                .Start("Rerolling...", ctx => { Thread.Sleep(1500); });
+        if (selected != "Yes") return;
+        GenerateAbilityScores();
 
-            AnsiConsole.MarkupLine("[green]Rerolled!![/]");
-            Thread.Sleep(1500);
-            GenerateAbilityScores();
-        }
-        
     }
     public static int Average(Dictionary<string, int> dictionary)
     {

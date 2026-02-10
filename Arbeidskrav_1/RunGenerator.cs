@@ -10,12 +10,10 @@ public class RunGenerator
 {
     public static void Run()
     {
-        
         AbilityScoresGenerator.GenerateAbilityScores();
-        AvailableClasses.CalculateHighestScores();
         AvailableClasses.ClassSelector();
         AvailableClasses.NoAvailableClassesCheck();
-        CharacterClass character = CharacterGenerator.GenerateClass(ChooseClass.Choose());
+        CharacterClass character = CharacterGenerator.GenerateClass(ClassSelector.ChooseClass());
         UserInterface.UserInterface.DisplayCharacter(character);
         
         
