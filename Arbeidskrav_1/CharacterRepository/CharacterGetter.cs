@@ -23,7 +23,15 @@ public class CharacterGetter
             JsonSerializer.Deserialize<List<Dictionary<string, string>>>(json);
 
         var info = characters?.FirstOrDefault(c => c.ContainsValue(name));
-        DisplayCharacter(info);
+        if (info == null)
+        {
+            AnsiConsole.MarkupLine("[red]The character does not exist.[/]");
+        }
+        else
+        {
+            DisplayCharacter(info);
+        }
+        UserInterface.CreateOrSearch.Choice();
     }
 
     private static void DisplayCharacter(Dictionary<string, string> info)

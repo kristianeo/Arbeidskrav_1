@@ -1,14 +1,15 @@
 using Arbeidskrav_1.CharacterClasses;
+using Spectre.Console;
 
 namespace Arbeidskrav_1;
 using System.Text.Json;
 
-public class SaveCharacter
+public class CharacterSetter
 {
     public static void AddToRepo(Dictionary<string, string> data)
     {
-        //TODO: fix this
-        const string filePath = @"C:\Users\olsen\OneDrive\Dokumenter\GitHub\Arbeidskrav_1\Arbeidskrav_1\CharacterRepo.json";
+       
+        const string filePath = @"C:\Users\olsen\OneDrive\Dokumenter\GitHub\Arbeidskrav_1\Arbeidskrav_1\CharacterRepository\CharacterRepo.json";
         
         List<Dictionary<string, string>> characters = [];
 
@@ -31,7 +32,7 @@ public class SaveCharacter
         );
 
         File.WriteAllText(filePath, updatedJson);
-        Console.WriteLine("Repo updated");
+        AnsiConsole.MarkupLine("[green]Character is saved![/]");
     }
 
     public static Dictionary<string, string> CreateDictionary(CharacterClass character, string hitPoints)
@@ -52,11 +53,5 @@ public class SaveCharacter
         return data;
     }
 
-
-    // public static void AddToRepo(CharacterClass character)
-    // {
-    //     string _jsonString = JsonSerializer.Serialize(character);
-    //     File.WriteAllText("CharacterRepo.json", _jsonString);  
-    // }
  
 }

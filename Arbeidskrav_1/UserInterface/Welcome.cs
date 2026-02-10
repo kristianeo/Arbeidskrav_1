@@ -6,7 +6,6 @@ public class Welcome
 {
     public static void WelcomeMessage()
     {
-        AnsiConsole.Clear();
         AnsiConsole.MarkupLine("[green]Welcome to the Character Generator! [/]");
         var prompt = new SelectionPrompt<string>()
             .Title("\n[red]What would you like to do?[/]")
