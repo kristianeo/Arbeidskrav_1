@@ -118,5 +118,20 @@
     "Prime requisite score: ": "16",
     "Modifier: ": "\u002B2",
     "XP for level 2: ": "1200"
+  },
+  {
+    "Character Name: ": "Krise",
+    "Class: ": "Thief",
+    "Hit Points: ": "3 (1d4 \u002B1)",
+    "Strength": "11",
+    "Intelligence": "9",
+    "Wisdom": "8",
+    "Dexterity": "13",
+    "Constitution": "13",
+    "Charisma": "12",
+    "Prime Requisite: ": "Dexterity",
+    "Prime requisite score: ": "13",
+    "Modifier: ": "\u002B1",
+    "XP for level 2: ": "1200"
   }
 ]
