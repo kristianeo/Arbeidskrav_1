@@ -73,5 +73,50 @@
     "Prime requisite score: ": "15",
     "Modifier: ": "\u002B1",
     "XP for level 2: ": "2000"
+  },
+  {
+    "Character Name: ": "Olav",
+    "Class: ": "Thief",
+    "Hit Points: ": "2 (1d4 \u002B0)",
+    "Strength": "10",
+    "Intelligence": "12",
+    "Wisdom": "8",
+    "Dexterity": "18",
+    "Constitution": "10",
+    "Charisma": "7",
+    "Prime Requisite: ": "Dexterity",
+    "Prime requisite score: ": "18",
+    "Modifier: ": "\u002B3",
+    "XP for level 2: ": "1200"
+  },
+  {
+    "Character Name: ": "Krist",
+    "Class: ": "Cleric",
+    "Hit Points: ": "1 (1d6 \u002B2)",
+    "Strength": "8",
+    "Intelligence": "5",
+    "Wisdom": "15",
+    "Dexterity": "10",
+    "Constitution": "17",
+    "Charisma": "11",
+    "Prime Requisite: ": "Wisdom",
+    "Prime requisite score: ": "15",
+    "Modifier: ": "\u002B1",
+    "XP for level 2: ": "1500"
+  },
+  {
+    "Character Name: ": "Kristian",
+    "Class: ": "Thief",
+    "Hit Points: ": "4 (1d4 \u002B0)",
+    "Strength": "12",
+    "Intelligence": "11",
+    "Wisdom": "10",
+    "Dexterity": "16",
+    "Constitution": "9",
+    "Charisma": "8",
+    "Prime Requisite: ": "Dexterity",
+    "Prime requisite score: ": "16",
+    "Modifier: ": "\u002B2",
+    "XP for level 2: ": "1200"
   }
 ]
