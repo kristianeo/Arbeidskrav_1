@@ -6,6 +6,7 @@ public class Welcome
 {
     public static void WelcomeMessage()
     {
+        Console.Clear();
         var figlet = new FigletText("Welcome")
         {
             Color = Color.Green,

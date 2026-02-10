@@ -24,7 +24,7 @@ public abstract class AbilityScoresGenerator
             CharacterClass.AbilityScores[value] += DiceRoll.RollDice("3d6");
         }
 
-        UserInterface.UserInterface.DisplayAbilityScores();
+        UserInterface.AbilityScoreDisplayer.DisplayAbilityScores();
         if (Average(CharacterClass.AbilityScores) <= 8)
         {
             UnderAverageHandler();
