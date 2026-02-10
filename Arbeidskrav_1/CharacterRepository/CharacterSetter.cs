@@ -4,11 +4,10 @@ using Spectre.Console;
 namespace Arbeidskrav_1;
 using System.Text.Json;
 
-public class CharacterSetter
+public abstract class CharacterSetter
 {
     public static void AddToRepo(Dictionary<string, string> data)
     {
-       
         const string filePath = @"C:\Users\olsen\OneDrive\Dokumenter\GitHub\Arbeidskrav_1\Arbeidskrav_1\CharacterRepository\CharacterRepo.json";
         
         List<Dictionary<string, string>> characters = [];

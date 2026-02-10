@@ -4,7 +4,7 @@ using Spectre.Console;
 
 namespace Arbeidskrav_1.CharacterRepository;
 
-public class CharacterGetter
+public abstract class CharacterGetter
 {
     public static void GetCharacter()
     {
