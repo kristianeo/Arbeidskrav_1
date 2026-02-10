@@ -133,5 +133,20 @@
     "Prime requisite score: ": "13",
     "Modifier: ": "\u002B1",
     "XP for level 2: ": "1200"
+  },
+  {
+    "Character Name: ": "Trygve",
+    "Class: ": "Thief",
+    "Hit Points: ": "1 (1d4 \u002B1)",
+    "Strength": "8",
+    "Intelligence": "7",
+    "Wisdom": "11",
+    "Dexterity": "12",
+    "Constitution": "14",
+    "Charisma": "14",
+    "Prime Requisite: ": "Dexterity",
+    "Prime requisite score: ": "12",
+    "Modifier: ": "\u002B0",
+    "XP for level 2: ": "1200"
   }
 ]
