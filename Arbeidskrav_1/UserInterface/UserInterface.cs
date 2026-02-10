@@ -1,4 +1,5 @@
 using Arbeidskrav_1.CharacterClasses;
+using Arbeidskrav_1.CharacterRepository;
 using Arbeidskrav_1.Generators;
 
 using Spectre.Console;
@@ -31,6 +32,7 @@ public class UserInterface
             });
   
         AnsiConsole.MarkupLine("[green]Character is created![/]");
+        string hitPoints = character.GetHitPoints();
         
         var grid = new Grid();
   
@@ -41,8 +43,8 @@ public class UserInterface
   
         grid.AddRow(new Markup("[bold]Character Name: [/]"), new Markup(character.CharacterName));
         grid.AddRow(new Markup("[bold]Class: [/]"), new Markup(character.ClassName));
-        grid.AddRow(new Markup("[bold]Hit Points: [/]"), new Markup(character.GetHitPoints()));
-        grid.AddRow(new Markup("[bold]Prime Requisite: [/]"), new Markup(prScore.Item1 + prScore.Item2 + " (Modifier " + Modifier.Modify(prScore.Item2) + ")"));
+        grid.AddRow(new Markup("[bold]Hit Points: [/]"), new Markup(hitPoints));
+        grid.AddRow(new Markup("[bold]Prime Requisite: [/]"), new Markup(prScore.Item1 + ": " + prScore.Item2 + "(Modifier " + Modifier.Modify(prScore.Item2) + ")"));
         grid.AddRow(new Markup("[bold]XP for level 2: [/]"), new Markup( $"{character.XpLevel2}"));
         grid.AddRow(
             new Markup("[bold]Ability Scores: [/]"),
@@ -59,22 +61,9 @@ public class UserInterface
   
         AnsiConsole.Write(grid);
         
-        var prompt = new SelectionPrompt<string>()
-            .Title("\n[green]Would you like to create a new character?[/]")
-            .AddChoices("Yes", "No");
-        var selected = AnsiConsole.Prompt(prompt);
+        CharacterSaver.SaveCharacter(character, hitPoints);
         
-        if (selected == "Yes")
-        {
-            RunGenerator.Run();
-        }
-        else
-        {
-            Console.Clear();
-            AnsiConsole.MarkupLine("[blue]Goodbye![/]");
-            Thread.Sleep(1500);
-            Environment.Exit(0);
-        }
+        CreateOrSearch.Choice();
         
         
     }
