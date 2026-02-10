@@ -43,7 +43,7 @@ public abstract class CharacterClass
     public abstract string GetHitPoints();
     
     /// <summary>
-    /// Displays stats for chosen character
+    /// Displays stats for chosen character //Not used 
     /// </summary>
     public string DisplayCharacter()
     {  
