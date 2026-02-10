@@ -11,8 +11,8 @@ public class RunGenerator
     public static void Run()
     {
         AbilityScoresGenerator.GenerateAbilityScores();
-        AvailableClasses.ClassSelector();
-        AvailableClasses.NoAvailableClassesCheck();
+        AvailableClassesGenerator.AvailableClasses();
+        AvailableClassesGenerator.NoAvailableClassesCheck();
         CharacterClass character = CharacterGenerator.GenerateClass(ClassSelector.ChooseClass());
         UserInterface.UserInterface.DisplayCharacter(character);
         

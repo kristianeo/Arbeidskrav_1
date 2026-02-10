@@ -3,16 +3,16 @@ using Spectre.Console;
 
 namespace Arbeidskrav_1.Generators;
 
-public class AvailableClasses
+public class AvailableClassesGenerator
 {
     public static readonly Dictionary<string, Tuple<string, int>> AvailableClass = new();
-    private static List<int> highestScores = [];
+    private static List<int> _highestScores = [];
     
     /// <summary>
     /// Calculates the highest and second-highest ability scores from the ability scores dictionary.
     /// Adds the ability names with their prime requisite and score in an available-classes dictionary.
     /// </summary>
-    public static void ClassSelector()
+    public static void AvailableClasses()
     {
         List<int> highScores = CalculateHighestScores();
         
@@ -48,7 +48,7 @@ public class AvailableClasses
 
     public static List<int> CalculateHighestScores()
     {
-        highestScores.Clear(); //Clears list when creating new character
+        _highestScores.Clear(); //Clears list when creating new character
         int highest = 0, secondHighest = 0;
 
         foreach (var kvp in CharacterClass.AbilityScores)
@@ -63,9 +63,9 @@ public class AvailableClasses
                 secondHighest = kvp.Value;
             }
         }
-        highestScores.Add(highest);
-        highestScores.Add(secondHighest);
-        return highestScores;
+        _highestScores.Add(highest);
+        _highestScores.Add(secondHighest);
+        return _highestScores;
     }
 
     public static void NoAvailableClassesCheck()

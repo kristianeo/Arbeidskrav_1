@@ -9,7 +9,7 @@ public abstract class CharacterSaver
     {
         Dictionary<string, string> data = CharacterSetter.CreateDictionary(character, hitPoints);
         var prompt = new SelectionPrompt<string>()
-            .Title("\n[red]Would you like to save this character?[/]")
+            .Title("\n[bold]Would you like to save this character?[/]")
             .AddChoices("Yes", "No");
         string selected = AnsiConsole.Prompt(prompt);
         if (selected == "Yes")

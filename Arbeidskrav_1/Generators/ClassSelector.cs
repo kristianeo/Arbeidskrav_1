@@ -11,7 +11,7 @@ public abstract class ClassSelector
     /// <returns>Chosen character class</returns>
     public static string ChooseClass()
     {
-        var available = AvailableClasses.AvailableClass.ToDictionary(kv => $"{kv.Key} {kv.Value}", kv =>  kv.Key);
+        var available = AvailableClassesGenerator.AvailableClass.ToDictionary(kv => $"{kv.Key} {kv.Value}", kv =>  kv.Key);
         if (available.Count == 1)
         {
             var classChoice = available.Keys.First();

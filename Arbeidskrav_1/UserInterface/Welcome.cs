@@ -6,9 +6,17 @@ public class Welcome
 {
     public static void WelcomeMessage()
     {
-        AnsiConsole.MarkupLine("[green]Welcome to the Character Generator! [/]");
+        var figlet = new FigletText("Welcome")
+        {
+            Color = Color.Green,
+            Justification = Justify.Center
+        };
+        
+        AnsiConsole.Write(figlet);
+        AnsiConsole.Write(new Rule("[green]to the character generator![/]"));
+        
         var prompt = new SelectionPrompt<string>()
-            .Title("\n[red]What would you like to do?[/]")
+            .Title("\n[rapidblink bold]What would you like to do?[/]")
             .AddChoices("Create character", "Search in character repository");
         var selected = AnsiConsole.Prompt(prompt);
         AnsiConsole.MarkupLineInterpolated($"\n[blue]You selected[/] {selected} ");

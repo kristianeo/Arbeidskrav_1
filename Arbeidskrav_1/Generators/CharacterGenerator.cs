@@ -38,11 +38,11 @@ public abstract class CharacterGenerator
     private static string GetCharacterName()
     {
         AskName:
-        var charName = AnsiConsole.Ask<string>("[blue]Enter character name: [/]");
+        var charName = AnsiConsole.Ask<string>("[bold]Enter character name: [/]");
         
         if (CharacterExists(charName))
         {
-            AnsiConsole.MarkupLine("[red]The character name is not available.[/]");
+            AnsiConsole.MarkupLine("[red]The character name is already in use.[/]");
             goto AskName;
         }
         
