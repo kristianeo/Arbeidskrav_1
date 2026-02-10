@@ -45,13 +45,14 @@ public abstract class CharacterClass
     /// <summary>
     /// Displays stats for chosen character
     /// </summary>
-    public void DisplayCharacter()
+    public string DisplayCharacter()
     {  
         var primeRequisite = GetPrimeRequisite();
+        string hitPoints = GetHitPoints();
         Console.WriteLine($"\n---CHARACTER CREATED---" +
                           $"\nName: {_characterName}" +
                           $"\nClass: {_className}" +
-                          $"\nHit Points: {GetHitPoints()}");
+                          $"\nHit Points: {hitPoints}");
     
         Console.WriteLine("\nAbility Scores:");
         foreach (KeyValuePair<string, int> kvp in _abilityScores)
@@ -62,6 +63,7 @@ public abstract class CharacterClass
         Console.WriteLine($"\nPrime Requisite: {primeRequisite.Item1} ({primeRequisite.Item2}) - " +
                           $"Modifier: {Modifier.Modify(primeRequisite.Item2)}" +
                           $"\nXP for level 2: {_xpLevel2}");
+        return hitPoints;
     }
     
     /// <summary>
