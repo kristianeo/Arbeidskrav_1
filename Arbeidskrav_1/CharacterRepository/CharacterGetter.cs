@@ -17,7 +17,7 @@ public abstract class CharacterGetter
         AnsiConsole.MarkupLine("[bold]Let's search for a character![/]\n");
         string name = AnsiConsole.Ask<string>("What is the name of the character?");
         
-        const string filePath = @"C:\Users\olsen\OneDrive\Dokumenter\GitHub\Arbeidskrav_1\Arbeidskrav_1\CharacterRepository\CharacterRepo.json";
+        const string filePath = @"..\Arbeidskrav_1\CharacterRepository\CharacterRepo.json";
         string json = File.ReadAllText(filePath);
         
         if (!File.Exists(filePath) || string.IsNullOrWhiteSpace(json))

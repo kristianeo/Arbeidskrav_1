@@ -1,5 +1,4 @@
 using System.Text.Json;
-using Arbeidskrav_1.CharacterClasses;
 using Spectre.Console;
 
 namespace Arbeidskrav_1.CharacterRepository;
@@ -12,7 +11,7 @@ public abstract class CharacterSetter
     /// <param name="data">Character data templated using CreateDictionary()</param>
     public static void AddToRepo(Dictionary<string, string> data)
     {
-        const string filePath = @"C:\Users\olsen\OneDrive\Dokumenter\GitHub\Arbeidskrav_1\Arbeidskrav_1\CharacterRepository\CharacterRepo.json";
+        const string filePath = @"..\Arbeidskrav_1\CharacterRepository\CharacterRepo.json";
         
         List<Dictionary<string, string>> characters = [];
 
