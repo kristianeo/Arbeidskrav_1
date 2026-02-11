@@ -17,7 +17,6 @@ public abstract class ClassSelector
             var classChoice = available.Keys.First();
             AnsiConsole.MarkupLine($"\n[bold]You have only one available class:[/] [blue]{Markup.Escape(classChoice)}[/]");
 
-            Console.WriteLine(available[classChoice]);
             return available[classChoice];
         }
         else
@@ -28,8 +27,7 @@ public abstract class ClassSelector
             var selected = AnsiConsole.Prompt(prompt);
             
             AnsiConsole.MarkupLineInterpolated($"\n[bold]You selected [/][blue]{selected} [/]");
-            Console.WriteLine(available[selected]);
-            
+         
             return available[selected];
         }
 
