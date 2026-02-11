@@ -26,9 +26,10 @@ public static class AvailableClassesGenerator
             if (kvp.Value != highScores.Max() && kvp.Value != highScores.Min()) continue;
             
             string available = kvp.Key;
-            var availableClass = CharacterClass.ClassInfo.FirstOrDefault(s => s.Key == available);
+            var availableClass = 
+                CharacterClass.ClassInfo.FirstOrDefault(s => s.Value.Item1 == available);
   
-            AvailableClass.Add(availableClass.Value.Item1, (kvp.Key, kvp.Value));
+            AvailableClass.Add(availableClass.Key, (kvp.Key, kvp.Value));
             
         }
         NoAvailableClassesCheck();

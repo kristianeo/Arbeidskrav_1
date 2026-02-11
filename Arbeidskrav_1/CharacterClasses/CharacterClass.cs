@@ -24,10 +24,10 @@ public abstract class CharacterClass
 
     private static Dictionary<string, (string, string)> _classInfo = new()
     {
-        { "Wisdom", ("Cleric", "1d6") },
-        { "Strength", ("Fighter", "1d8") },
-        { "Intelligence", ("Magic-User", "1d4") },
-        { "Dexterity", ("Thief", "1d4") }
+        { "Cleric", ("Wisdom", "1d6") },
+        { "Fighter", ("Strength", "1d8") },
+        { "Magic-User", ("Intelligence", "1d4") },
+        { "Thief", ("Dexterity", "1d4") }
     };
 
 
@@ -48,6 +48,7 @@ public abstract class CharacterClass
     /// Public property to display class name
     /// </summary>
     public string ClassName => _className;
+
     /// <summary>
     /// Public property to display chosen character name
     /// </summary>
