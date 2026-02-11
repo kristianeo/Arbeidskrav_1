@@ -12,7 +12,7 @@ public abstract class CharacterSaver
     /// </summary>
     /// <param name="character"></param>
     /// <param name="hitPoints"></param>
-    public static void SaveCharacter(CharacterClass character, string hitPoints)
+    public static void SaveCharacter(CharacterClass character)
     {
         var prompt = new SelectionPrompt<string>()
             .Title("\n[bold]Would you like to save this character?[/]")
@@ -20,7 +20,7 @@ public abstract class CharacterSaver
         string selected = AnsiConsole.Prompt(prompt);
         if (selected == "Yes")
         {
-            Dictionary<string, string> data = DictionaryCreator.CreateDictionary(character, hitPoints);
+            Dictionary<string, string> data = DictionaryCreator.CreateDictionary(character);
             CharacterSetter.AddToRepo(data);
         }
         UserInterface.CreateOrSearch.Choice();

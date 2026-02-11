@@ -1,20 +1,9 @@
 namespace Arbeidskrav_1.CharacterClasses;
 
-public class Fighter(string charName, Dictionary<string, int> abilityScores) :
-    CharacterClass("Fighter", charName, 2000, abilityScores)
+public class Fighter(string charName, Dictionary<string, int> abilityScores)
+    : CharacterClass("Fighter", charName, 2000, abilityScores, _hitPoints)
 {
-    public override string GetHitPoints()
-    {
-        var constitutionScore = AbilityScores.FirstOrDefault(s => s.Key == "Constitution");
-        int modifier = short.Parse(Modifier.Modify(constitutionScore.Value));
-        int hitPoints = DiceRoll.RollDice("1d8") - modifier;
-        if (hitPoints < 1)
-        {
-            hitPoints = 1;
-        }
-
-        return $"{hitPoints} (1d8 {Modifier.Modify(constitutionScore.Value)})";
-    }
+    private static string _hitPoints = GetHitPoints("1d8");
 
     public override Tuple<string, int> GetPrimeRequisite()
     {

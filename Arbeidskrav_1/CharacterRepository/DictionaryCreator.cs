@@ -8,14 +8,13 @@ public abstract class DictionaryCreator
     /// Creates a dictionary template to save character information to .json
     /// </summary>
     /// <param name="character"></param>
-    /// <param name="hitPoints"></param>
     /// <returns></returns>
-    public static Dictionary<string, string> CreateDictionary(CharacterClass character, string hitPoints)
+    public static Dictionary<string, string> CreateDictionary(CharacterClass character)
     {
         Dictionary<string, string> data = [];
         data.Add("Character Name: ", character.CharacterName);
         data.Add("Class: ", character.ClassName);
-        data.Add("Hit Points: ", hitPoints);
+        data.Add("Hit Points: ", character.HitPoints);
         foreach (KeyValuePair<string, int> kvp in CharacterClass.AbilityScores)
         {
             data.Add(kvp.Key, $"{kvp.Value}");

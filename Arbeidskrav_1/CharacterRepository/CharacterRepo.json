@@ -163,5 +163,20 @@
     "Prime requisite score: ": "14",
     "Modifier: ": "\u002B1",
     "XP for level 2: ": "1500"
+  },
+  {
+    "Character Name: ": "Nilssen",
+    "Class: ": "Thief",
+    "Hit Points: ": "3 (1d6 -1)",
+    "Strength": "13",
+    "Intelligence": "12",
+    "Wisdom": "4",
+    "Dexterity": "16",
+    "Constitution": "7",
+    "Charisma": "12",
+    "Prime Requisite: ": "Dexterity",
+    "Prime requisite score: ": "16",
+    "Modifier: ": "\u002B2",
+    "XP for level 2: ": "1200"
   }
 ]
