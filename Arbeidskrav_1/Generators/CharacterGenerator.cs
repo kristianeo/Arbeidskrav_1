@@ -7,36 +7,33 @@ namespace Arbeidskrav_1.Generators;
 public abstract class CharacterGenerator
 {
     /// <summary>
-    /// Generates a new instance of the class chosen by the player.
+    /// Generates a new instance of concrete class
     /// </summary>
     /// <param name="classChoice"></param>
     /// <returns></returns>
     public static CharacterClass GenerateClass(string? classChoice)
     {
         string charName = CharacterNameGenerator.GetCharacterName();
-        string? choice = classChoice?.ToLower();
+        string? choice = classChoice;
         switch (choice)
         {
-            case "cleric":
+            case "Cleric":
                 Cleric cleric = new Cleric(charName, CharacterClass.AbilityScores);
                 return cleric;
 
-            case "fighter":
+            case "Fighter":
                 Fighter fighter = new Fighter(charName, CharacterClass.AbilityScores);
                 return fighter;
 
-            case "thief":
+            case "Thief":
                 Thief thief = new Thief(charName, CharacterClass.AbilityScores);
                 return thief;
 
-            case "magic user":
+            case "Magic-User":
                 MagicUser magicUser = new MagicUser(charName, CharacterClass.AbilityScores);
                 return magicUser;
-            
-            default: //This is never going to run
-                Console.WriteLine("Something went wrong.");
-                classChoice = ClassSelector.ChooseClass();
-                return GenerateClass(classChoice);
+            default:
+                throw new ArgumentOutOfRangeException(classChoice);
         }
     }
 }
