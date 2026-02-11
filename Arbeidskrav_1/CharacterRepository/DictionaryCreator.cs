@@ -26,6 +26,4 @@ public abstract class DictionaryCreator
         data.Add("XP for level 2: ", $"{character.XpLevel2}");
         return data;
     }
-    //TODO: Fix hitPoints so it doesnt have to be used like this 
-
 }
