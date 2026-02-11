@@ -1,13 +1,15 @@
 namespace Arbeidskrav_1.CharacterClasses;
 
 public class Fighter(string charName, Dictionary<string, int> abilityScores)
-    : CharacterClass("Fighter", charName, 2000, abilityScores, _hitPoints)
+    : CharacterClass(ClassType, charName, 2000, abilityScores, _hitPoints)
 {
-    private static string _hitDice = ClassInfo[PrimeRequisite].Item2;
-    
-    private static string _hitPoints = GetHitPoints(_hitDice);
+    private const string ClassType = "Fighter";
     
     private const string PrimeRequisite = "Strength";
+    
+    private static string _hitDice = ClassInfo[ClassType].Item2;
+    
+    private static string _hitPoints = GetHitPoints(_hitDice);
 
     public override Tuple<string, int> GetPrimeRequisite()
     {

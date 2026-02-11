@@ -1,14 +1,15 @@
 namespace Arbeidskrav_1.CharacterClasses;
 
 public class Thief(string charName, Dictionary<string, int> abilityScores)
-    : CharacterClass("Thief", charName, 1200, abilityScores, _hitPoints)
+    : CharacterClass(ClassType, charName, 1200, abilityScores, _hitPoints)
 {
-    private static string _hitDice = ClassInfo[PrimeRequisite].Item2;
-    
-    private static string _hitPoints = GetHitPoints(_hitDice);
+    private const string ClassType = "Thief";
     
     private const string PrimeRequisite = "Dexterity";
-
+    
+    private static string _hitDice = ClassInfo[ClassType].Item2;
+    
+    private static string _hitPoints = GetHitPoints(_hitDice);
 
     public override Tuple<string, int> GetPrimeRequisite()
     {

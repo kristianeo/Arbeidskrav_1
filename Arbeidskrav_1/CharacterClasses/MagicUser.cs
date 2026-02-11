@@ -1,13 +1,17 @@
+using System.Runtime.CompilerServices;
+
 namespace Arbeidskrav_1.CharacterClasses;
 
 public class MagicUser(string charName, Dictionary<string, int> abilityScores)
-    : CharacterClass("Magic User", charName, 2500, abilityScores, _hitPoints)
+    : CharacterClass(ClassType, charName, 2500, abilityScores, _hitPoints)
 {
-    private static string _hitDice = ClassInfo[PrimeRequisite].Item2;
+    private const string PrimeRequisite = "Intelligence";
+
+    private const string ClassType = "Magic-User";
+    
+    private static string _hitDice = ClassInfo[ClassType].Item2;
     
     private static string _hitPoints = GetHitPoints(_hitDice);
-    
-    private const string PrimeRequisite = "Intelligence";
 
     public override Tuple<string, int> GetPrimeRequisite()
     {
