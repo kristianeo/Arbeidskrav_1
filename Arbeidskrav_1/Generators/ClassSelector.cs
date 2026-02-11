@@ -11,12 +11,13 @@ public abstract class ClassSelector
     /// <returns>Chosen character class</returns>
     public static string ChooseClass()
     {
-        var available = AvailableClassesGenerator.AvailableClass.ToDictionary(kv => $"{kv.Key} {kv.Value}", kv =>  kv.Key);
+        var available = AvailableClassesGenerator.AvailableClass.ToDictionary(kv => $"{kv.Key} ({kv.Value.Item1} {kv.Value.Item2})", kv =>  kv.Key);
         if (available.Count == 1)
         {
             var classChoice = available.Keys.First();
             AnsiConsole.MarkupLine($"\n[bold]You have only one available class:[/] [blue]{Markup.Escape(classChoice)}[/]");
-            
+
+            Console.WriteLine(available[classChoice]);
             return available[classChoice];
         }
         else
@@ -25,10 +26,11 @@ public abstract class ClassSelector
                 .Title("\n[bold]Available classes based on your ability scores: [/]")
                 .AddChoices(available.Keys);
             var selected = AnsiConsole.Prompt(prompt);
-            var classChoice = available[selected];
-            AnsiConsole.MarkupLineInterpolated($"\n[bold]You selected [/][blue]{selected} [/]");
             
-            return classChoice;
+            AnsiConsole.MarkupLineInterpolated($"\n[bold]You selected [/][blue]{selected} [/]");
+            Console.WriteLine(available[selected]);
+            
+            return available[selected];
         }
 
     }
