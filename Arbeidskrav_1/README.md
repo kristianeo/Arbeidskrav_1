@@ -1,6 +1,6 @@
 # OSE Character Generator
 
-A terminal-based generator where you can create your own character based on [Old-School Essentials - Basic Rules v1.4](https://necroticgnome.com/products/old-school-essentials-basic-rules).
+A terminal-based program where you can create your own character based on a simplified version of [Old-School Essentials - Basic Rules v1.4](https://necroticgnome.com/products/old-school-essentials-basic-rules).
 
 ## Table of Contents
 

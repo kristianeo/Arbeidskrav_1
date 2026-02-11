@@ -65,9 +65,19 @@ public abstract class CharacterClass
             hitPoints = 1;
         }
 
-        return $"{hitPoints} (1d6 {Modifier.Modify(constitutionScore.Value)})";
+        return $"{hitPoints} ({dice} {Modifier.Modify(constitutionScore.Value)})";
     }
-    
+     
+    /// <summary>
+    /// Shows Prime requisite and modifier for chosen class
+    /// </summary>
+    /// <returns>Tuple of prime requisite name and score</returns>
+    public abstract Tuple<string, int> GetPrimeRequisite();
+
+    public override string ToString()
+    {
+        return $"Character Class: {_className} - Character Name: {_characterName}";
+    }
     
     /// <summary>
     /// Displays stats for chosen character //Not used 
@@ -90,15 +100,5 @@ public abstract class CharacterClass
                           $"Modifier: {Modifier.Modify(primeRequisite.Item2)}" +
                           $"\nXP for level 2: {_xpLevel2}");
     }
-    
-    /// <summary>
-    /// Shows Prime requisite for chosen class and calculates modifier using Modifier class
-    /// </summary>
-    /// <returns>Tuple of prime requisite name and score</returns>
-    public abstract Tuple<string, int> GetPrimeRequisite();
-
-    public override string ToString()
-    {
-        return $"Character Class: {_className} - Character Name: {_characterName}";
-    }
+   
 }
