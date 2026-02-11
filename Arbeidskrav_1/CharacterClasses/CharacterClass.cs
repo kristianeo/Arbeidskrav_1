@@ -22,6 +22,15 @@ public abstract class CharacterClass
         { "Charisma", 0 }
     };
 
+    private static Dictionary<string, (string, string)> _classInfo = new()
+    {
+        { "Wisdom", ("Cleric", "1d6") },
+        { "Strength", ("Fighter", "1d8") },
+        { "Intelligence", ("Magic-User", "1d4") },
+        { "Dexterity", ("Thief", "1d4") }
+    };
+
+
     protected CharacterClass(string className, string characterName, int xpLevel2, Dictionary<string, int> abilityScores, string hitPoints)
     {
         _xpLevel2 = xpLevel2;
@@ -50,6 +59,11 @@ public abstract class CharacterClass
     /// Public property to display rolled ability scores
     /// </summary>
     public static Dictionary<string, int> AbilityScores => _abilityScores;
+    
+    /// <summary>
+    /// Public property to display character class, their prime requisite and hit die
+    /// </summary>
+    public static Dictionary<string, (string, string)> ClassInfo => _classInfo;
 
     /// <summary>
     /// Calculates Hit Points for given character class 
