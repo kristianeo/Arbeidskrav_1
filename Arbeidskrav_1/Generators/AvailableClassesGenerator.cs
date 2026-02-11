@@ -5,7 +5,7 @@ namespace Arbeidskrav_1.Generators;
 
 public class AvailableClassesGenerator
 {
-    public static readonly Dictionary<string, Tuple<string, int>> AvailableClass = new();
+    public static readonly Dictionary<string, (string, int)> AvailableClass = new();
     private static List<int> _highestScores = [];
     
     /// <summary>
@@ -15,9 +15,10 @@ public class AvailableClassesGenerator
     /// </summary>
     public static void AvailableClasses()
     {
+        AvailableClass.Clear();
+        
         List<int> highScores = CalculateHighestScores();
         
-        AvailableClass.Clear();
         foreach (KeyValuePair<string, int> kvp in CharacterClass.AbilityScores)
         {
             if (kvp.Key is "Charisma" or "Constitution") continue;
@@ -25,25 +26,9 @@ public class AvailableClassesGenerator
             if (kvp.Value != highScores.Max() && kvp.Value != highScores.Min()) continue;
             
             string available = kvp.Key;
-            string availableClass = "";
-            Tuple<string, int> requisiteScore = new Tuple<string, int>(kvp.Key, kvp.Value);
-            switch (available)
-            {
-                case "Wisdom":
-                    availableClass = "Cleric";
-                    break;
-                case "Strength":
-                    availableClass = "Fighter";
-                    break;
-                case "Intelligence":
-                    availableClass = "Magic User";
-                    break;
-                case "Dexterity":
-                    availableClass = "Thief";
-                    break;
-            }
-                
-            AvailableClass.Add(availableClass, requisiteScore);
+            var availableClass = CharacterClass.ClassInfo.FirstOrDefault(s => s.Key == available);
+  
+            AvailableClass.Add(availableClass.Value.Item1, (kvp.Key, kvp.Value));
         }
         NoAvailableClassesCheck();
     }
