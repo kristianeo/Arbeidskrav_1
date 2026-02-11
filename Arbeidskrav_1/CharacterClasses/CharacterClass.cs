@@ -27,13 +27,21 @@ public abstract class CharacterClass
         _characterName = characterName;
         _abilityScores =  abilityScores;
     }
-
+    /// <summary>
+    /// Public property to display XP needed for level 2
+    /// </summary>
     public int XpLevel2 => _xpLevel2;
-
+    /// <summary>
+    /// Public property to display class name
+    /// </summary>
     public string ClassName => _className;
-
+    /// <summary>
+    /// Public property to display chosen character name
+    /// </summary>
     public string CharacterName => _characterName;
-    
+    /// <summary>
+    /// Public property to display rolled ability scores
+    /// </summary>
     public static Dictionary<string, int> AbilityScores => _abilityScores;
 
     /// <summary>
