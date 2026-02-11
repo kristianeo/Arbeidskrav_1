@@ -9,9 +9,9 @@ public class Cleric(string charName, Dictionary<string, int> abilityScores)
 
     public override Tuple<string, int> GetPrimeRequisite()
     {
-        string primerequisite = "Wisdom";
-        var prScore = AbilityScores.FirstOrDefault(s => s.Key == primerequisite);
+        const string primeRequisite = "Wisdom";
+        var prScore = AbilityScores.FirstOrDefault(s => s.Key == primeRequisite);
         int primeRequisiteScore = prScore.Value;
-        return Tuple.Create(primerequisite, primeRequisiteScore);
+        return Tuple.Create(primeRequisite, primeRequisiteScore);
     }
 }
