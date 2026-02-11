@@ -148,5 +148,20 @@
     "Prime requisite score: ": "12",
     "Modifier: ": "\u002B0",
     "XP for level 2: ": "1200"
+  },
+  {
+    "Character Name: ": "Nilsemann",
+    "Class: ": "Cleric",
+    "Hit Points: ": "2 (1d6 -1)",
+    "Strength": "10",
+    "Intelligence": "8",
+    "Wisdom": "14",
+    "Dexterity": "8",
+    "Constitution": "7",
+    "Charisma": "10",
+    "Prime Requisite: ": "Wisdom",
+    "Prime requisite score: ": "14",
+    "Modifier: ": "\u002B1",
+    "XP for level 2: ": "1500"
   }
 ]

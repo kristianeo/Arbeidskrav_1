@@ -14,8 +14,5 @@ public class RunGenerator
         AvailableClassesGenerator.AvailableClasses();
         CharacterClass character = CharacterGenerator.GenerateClass(ClassSelector.ChooseClass());
         UserInterface.CharacterDisplayer.DisplayCharacter(character);
-        
-        
     }
-        
 }
