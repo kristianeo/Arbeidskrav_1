@@ -20,6 +20,7 @@ public abstract class CharacterDisplayer
         var abilityValues = CharacterClass.AbilityScores.Values.ToList();
         
         AnsiConsole.Status()
+            .Spinner(Spinner.Known.SimpleDotsScrolling)
             .Start("Calculating scores...", ctx =>
             {
                 Thread.Sleep(1500);

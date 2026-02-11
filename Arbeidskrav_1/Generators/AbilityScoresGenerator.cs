@@ -15,7 +15,7 @@ public abstract class AbilityScoresGenerator
     {
         Console.Clear();
         AnsiConsole.Status()
-            .Spinner(Spinner.Known.Arrow)
+            .Spinner(Spinner.Known.Binary)
             .Start("Rolling ability scores...", ctx => { Thread.Sleep(1500); });
 
         foreach (string value in CharacterClass.AbilityScores.Keys)

@@ -3,7 +3,7 @@ using Spectre.Console;
 
 namespace Arbeidskrav_1.Generators;
 
-public class AvailableClassesGenerator
+public static class AvailableClassesGenerator
 {
     public static readonly Dictionary<string, (string, int)> AvailableClass = new();
     private static List<int> _highestScores = [];
@@ -29,6 +29,7 @@ public class AvailableClassesGenerator
             var availableClass = CharacterClass.ClassInfo.FirstOrDefault(s => s.Key == available);
   
             AvailableClass.Add(availableClass.Value.Item1, (kvp.Key, kvp.Value));
+            
         }
         NoAvailableClassesCheck();
     }
