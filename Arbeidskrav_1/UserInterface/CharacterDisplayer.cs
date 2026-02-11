@@ -41,8 +41,8 @@ public abstract class CharacterDisplayer
         grid.AddRow(new Markup("[bold]Character Name: [/]"), new Markup(character.CharacterName));
         grid.AddRow(new Markup("[bold]Class: [/]"), new Markup(character.ClassName));
         grid.AddRow(new Markup("[bold]Hit Points: [/]"), new Markup(character.HitPoints));
-        grid.AddRow(new Markup("[bold]Prime Requisite: [/]"), new Markup(prScore.Item1 + ": " + prScore.Item2 + 
-                                                                         "(Modifier " + Modifier.Modify(prScore.Item2) + ")"));
+        grid.AddRow(new Markup("[bold]Prime Requisite: [/]"), new Markup(prScore.Item1 + " " + prScore.Item2 + 
+                                                                         " (Modifier " + Modifier.Modify(prScore.Item2) + ")"));
         grid.AddRow(new Markup("[bold]XP for level 2: [/]"), new Markup( $"{character.XpLevel2}"));
         grid.AddRow(
             new Markup("[bold]Ability Scores: [/]"),
