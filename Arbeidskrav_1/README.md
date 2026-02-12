@@ -4,12 +4,16 @@ A terminal-based program where you can create your own character based on a simp
 
 ## Table of Contents
 
+- [Author](#author)
 - [Features](#features)
 - [Technologies Used](#technologies-used)
-- [Author](#author)
+- [Installation](#installation)
 - [Process](#process)
 - [Sources](#sources)
 - [Use of AI](#use-of-ai)
+
+## Author
+Kristiane Olsen  [GitHub](https://github.com/Kristianeo)
 
 ## Features
 
@@ -24,8 +28,16 @@ A terminal-based program where you can create your own character based on a simp
 - **Spectre.Console**: System for making terminal applications
 - **System.Text.Json**: Used to convert C# data to .json and back
 
-## Author
-Kristiane Olsen  [GitHub](https://github.com/Kristianeo)
+## Installation
+1. Clone repository
+ ```bash
+    git clone https://github.com/kristianeo/OSE_Character_Generator.git
+    cd Arbeidskrav_1
+   ```
+2. Install Spectre.Console
+````bash
+    dotnet add package Spectre.Console
+````
 
 ## Process
 I started with making an abstract CharacterClass as the base class, and then the concrete classes. 
@@ -54,7 +66,6 @@ to create a new character or search the repo, and CreateOrSearch which asks the 
 - [Find the second-largest element](https://www.geeksforgeeks.org/dsa/find-second-largest-element-array/)
 - [Find the value when knowing the key](https://stackoverflow.com/questions/22505998/how-to-get-value-from-dictionary-without-knowing-key)
 - [Format dictionary](https://stackoverflow.com/questions/3611126/using-todictionary)
-- [Exit terminal](https://stackoverflow.com/questions/10286056/what-is-the-command-to-exit-a-console-application-in-c)
 - [Using System.Text.Json](https://blog.nashtechglobal.com/read-and-write-json-file-in-net/)
 
 ## Use of AI
