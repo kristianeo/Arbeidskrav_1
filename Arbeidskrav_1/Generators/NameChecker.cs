@@ -11,8 +11,7 @@ public abstract class NameChecker
     /// <returns></returns>
     public static bool CharacterExists(string name)
     {
-        const string filePath = 
-            @"C:\Users\olsen\OneDrive\Dokumenter\GitHub\Arbeidskrav_1\Arbeidskrav_1\CharacterRepository\CharacterRepo.json";
+        string filePath = CharacterRepository.FilePathGetter.GetFilePath();
         string json = File.ReadAllText(filePath);
         
         if (!File.Exists(filePath) || string.IsNullOrWhiteSpace(json))
