@@ -103,5 +103,20 @@
     "Prime requisite score: ": "14",
     "Modifier: ": "\u002B1",
     "XP for level 2: ": "1500"
+  },
+  {
+    "Character Name: ": "Nils69",
+    "Class: ": "Fighter",
+    "Hit Points: ": "1 (1d8 \u002B0)",
+    "Strength": "11",
+    "Intelligence": "7",
+    "Wisdom": "11",
+    "Dexterity": "8",
+    "Constitution": "9",
+    "Charisma": "8",
+    "Prime Requisite: ": "Strength",
+    "Prime requisite score: ": "11",
+    "Modifier: ": "\u002B0",
+    "XP for level 2: ": "2000"
   }
 ]

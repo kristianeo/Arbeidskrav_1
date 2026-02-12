@@ -1,3 +1,4 @@
+using Arbeidskrav_1.Generators;
 using Spectre.Console;
 using Spectre.Console.Rendering;
 
@@ -12,7 +13,7 @@ public abstract class CharacterGetter
     /// </summary>
     public static void GetCharacter()
     {
-        var characters = JsonGetter.GetJson();
+        List<Dictionary<string, string>> characters = JsonGetter.GetJson();
         
         var prompt = new SelectionPrompt<string>()
             .Title("\n[bold]What would you like to do?[/]")
@@ -29,7 +30,7 @@ public abstract class CharacterGetter
             Console.Clear();
             var rows = new List<IRenderable>();
             
-            foreach (var character in characters)
+            foreach (Dictionary<string, string> character in characters)
             {
                 rows.Add(CharacterDisplayer.DisplayCharacter(character));
                 rows.Add(new Markup("[green]_________________________________________________[/]"));
@@ -48,15 +49,22 @@ public abstract class CharacterGetter
             AnsiConsole.MarkupLine("[bold]Let's search for a character![/]\n");
             string name = AnsiConsole.Ask<string>("What is the name of the character?");
 
-            var info = characters.FirstOrDefault(c => c.ContainsValue(name));
-            if (info == null)
+            if (NameChecker.CharacterExists(name))
             {
-                AnsiConsole.MarkupLine("[red]The character does not exist.[/]");
+                var charName = characters.FirstOrDefault(
+                    character => character.TryGetValue("Character Name: ",  out var charName)
+                                                         && charName.Equals(name, StringComparison.OrdinalIgnoreCase));
+
+                var panel = new Panel(new Rows(CharacterDisplayer.DisplayCharacter(charName!)))
+                    .Header("Character found")
+                    .DoubleBorder()
+                    .BorderColor(Color.Green);
+
+                AnsiConsole.Write(panel);
             }
             else
             {
-                var grid = CharacterDisplayer.DisplayCharacter(info);
-                AnsiConsole.Write(grid);
+                AnsiConsole.MarkupLine("[red]The character does not exist.[/]");
             }
         }
         UserInterface.CreateOrSearch.Choice();
