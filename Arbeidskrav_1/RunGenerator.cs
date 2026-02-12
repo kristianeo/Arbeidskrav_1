@@ -40,7 +40,6 @@ public abstract class RunGenerator
             .Title("\n[rapidblink bold]What would you like to do?[/]")
             .AddChoices("Create character", "Search in character repository");
         var selected = AnsiConsole.Prompt(prompt);
-        AnsiConsole.MarkupLineInterpolated($"\n[blue]You selected[/] {selected} ");
         
         switch (selected)
         {

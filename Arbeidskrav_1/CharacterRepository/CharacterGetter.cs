@@ -8,34 +8,45 @@ namespace Arbeidskrav_1.CharacterRepository;
 public abstract class CharacterGetter
 {
     /// <summary>
-    /// The player enters a character name to search for in the repository.
+    /// The player enters a character name to search for in the repository,
+    /// or show all created characters.
     /// Displays the data using DisplayCharacter.
     /// </summary>
-    /// <exception cref="FileNotFoundException"></exception>
     public static void GetCharacter()
     {
-        AnsiConsole.MarkupLine("[bold]Let's search for a character![/]\n");
-        string name = AnsiConsole.Ask<string>("What is the name of the character?");
+        var characters = JsonGetter.GetJson();
         
-        const string filePath = @"..\Arbeidskrav_1\CharacterRepository\CharacterRepo.json";
-        string json = File.ReadAllText(filePath);
+        var prompt = new SelectionPrompt<string>()
+            .Title("\n[bold]What would you like to do?[/]")
+            .AddChoices("Search for a character", "Show all generated characters");
+        var selected = AnsiConsole.Prompt(prompt);
         
-        if (!File.Exists(filePath) || string.IsNullOrWhiteSpace(json))
+        if (characters.Count == 0)
         {
-            throw new FileNotFoundException("The file doesn't exist");
+            AnsiConsole.MarkupLine("[red]There are no characters in the repository.[/]");
         }
-        
-        List<Dictionary<string, string>>? characters =
-            JsonSerializer.Deserialize<List<Dictionary<string, string>>>(json);
 
-        var info = characters?.FirstOrDefault(c => c.ContainsValue(name));
-        if (info == null)
+        else if (selected == "Show all generated characters")
         {
-            AnsiConsole.MarkupLine("[red]The character does not exist.[/]");
+            foreach (var character in characters)
+            {
+                CharacterDisplayer.DisplayCharacter(character);
+            }
         }
         else
         {
-            CharacterDisplayer.DisplayCharacter(info);
+            AnsiConsole.MarkupLine("[bold]Let's search for a character![/]\n");
+            string name = AnsiConsole.Ask<string>("What is the name of the character?");
+
+            var info = characters?.FirstOrDefault(c => c.ContainsValue(name));
+            if (info == null)
+            {
+                AnsiConsole.MarkupLine("[red]The character does not exist.[/]");
+            }
+            else
+            {
+                CharacterDisplayer.DisplayCharacter(info);
+            }
         }
         UserInterface.CreateOrSearch.Choice();
     }

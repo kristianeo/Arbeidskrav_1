@@ -11,20 +11,8 @@ public abstract class CharacterSetter
     /// <param name="data">Character data templated using CreateDictionary()</param>
     public static void AddToRepo(Dictionary<string, string> data)
     {
-        const string filePath = @"..\Arbeidskrav_1\CharacterRepository\CharacterRepo.json";
-        
-        List<Dictionary<string, string>> characters = [];
-
-        if (File.Exists(filePath))
-        {
-            string existingJson = File.ReadAllText(filePath);
-
-            if (!string.IsNullOrWhiteSpace(existingJson))
-            {
-                characters = JsonSerializer.Deserialize<List<Dictionary<string, string>>>(existingJson)
-                             ?? new List<Dictionary<string, string>>();
-            }
-        }
+        var characters = JsonGetter.GetJson();
+        string filePath = FilePathGetter.GetFilePath();
 
         characters.Add(data);
 
