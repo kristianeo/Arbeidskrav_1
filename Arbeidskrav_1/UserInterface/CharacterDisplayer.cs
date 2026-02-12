@@ -30,7 +30,7 @@ public abstract class CharacterDisplayer
                 
             });
   
-        AnsiConsole.MarkupLine("[green]Character is created![/]");
+        AnsiConsole.MarkupLine("[green]Character created![/]");
         
         var grid = new Grid();
   

@@ -22,6 +22,6 @@ public abstract class CharacterSetter
         );
 
         File.WriteAllText(filePath, updatedJson);
-        AnsiConsole.MarkupLine("[green]Character is saved![/]");
+        AnsiConsole.MarkupLine("[green]Character saved![/]");
     }
 }
