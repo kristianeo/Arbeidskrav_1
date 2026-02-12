@@ -27,9 +27,9 @@ public abstract class CharacterNameGenerator
 
         foreach (char item in charName)
         {                        
-            if (!char.IsAsciiLetter(item))
+            if (!char.IsAsciiLetterOrDigit(item))
             {
-                AnsiConsole.MarkupLine("[red]Character name can only contain letters A-Z[/]");
+                AnsiConsole.MarkupLine("[red]Character name can only contain letters A-Z and numbers 0-9[/]");
                 goto AskName;
             }
         }
