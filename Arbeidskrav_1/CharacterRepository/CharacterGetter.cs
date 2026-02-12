@@ -1,6 +1,3 @@
-using System.Text;
-using System.Text.Json;
-using Arbeidskrav_1.CharacterClasses;
 using Spectre.Console;
 
 namespace Arbeidskrav_1.CharacterRepository;
@@ -38,7 +35,7 @@ public abstract class CharacterGetter
             AnsiConsole.MarkupLine("[bold]Let's search for a character![/]\n");
             string name = AnsiConsole.Ask<string>("What is the name of the character?");
 
-            var info = characters?.FirstOrDefault(c => c.ContainsValue(name));
+            var info = characters.FirstOrDefault(c => c.ContainsValue(name));
             if (info == null)
             {
                 AnsiConsole.MarkupLine("[red]The character does not exist.[/]");

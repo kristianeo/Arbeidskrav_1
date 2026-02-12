@@ -60,7 +60,7 @@ public static class AvailableClassesGenerator
     private static void NoAvailableClassesCheck()
     {
         if (AvailableClass.Count != 0) return;
-        AnsiConsole.WriteLine("You have no available classes based on your ability scores.");
+        AnsiConsole.MarkupLine("[red]You have no available classes based on your ability scores.[/]");
         RunGenerator.Run(); //Starts rolling new ability scores
     }
 }
