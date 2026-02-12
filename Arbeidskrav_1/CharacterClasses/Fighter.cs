@@ -5,7 +5,7 @@ public class Fighter(string charName, Dictionary<string, int> abilityScores)
 {
     private const string ClassType = "Fighter";
     
-    private const string PrimeRequisite = "Strength";
+    private readonly string _primeRequisite = ClassInfo[ClassType].Item1;
     
     private static string _hitDice = ClassInfo[ClassType].Item2;
     
@@ -13,9 +13,9 @@ public class Fighter(string charName, Dictionary<string, int> abilityScores)
 
     public override Tuple<string, int> GetPrimeRequisite()
     {
-        var prScore = AbilityScores.FirstOrDefault(s => s.Key == PrimeRequisite);
+        var prScore = AbilityScores.FirstOrDefault(s => s.Key == _primeRequisite);
         int primeRequisiteScore = prScore.Value;
-        return Tuple.Create(PrimeRequisite, primeRequisiteScore);
+        return Tuple.Create(_primeRequisite, primeRequisiteScore);
     }
    
     

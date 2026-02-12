@@ -5,8 +5,8 @@ public class Cleric(string charName, Dictionary<string, int> abilityScores)
     : CharacterClass(ClassType, charName, 1500, abilityScores, _hitPoints)
 {
     private const string ClassType = "Cleric";
-    
-    private const string PrimeRequisite = "Wisdom";
+
+    private readonly string _primeRequisite = ClassInfo[ClassType].Item1;
     
     private static string _hitDice = ClassInfo[ClassType].Item2;
     
@@ -14,8 +14,8 @@ public class Cleric(string charName, Dictionary<string, int> abilityScores)
 
     public override Tuple<string, int> GetPrimeRequisite()
     {
-        var prScore = AbilityScores.FirstOrDefault(s => s.Key == PrimeRequisite);
+        var prScore = AbilityScores.FirstOrDefault(s => s.Key == _primeRequisite);
         int primeRequisiteScore = prScore.Value;
-        return Tuple.Create(PrimeRequisite, primeRequisiteScore);
+        return Tuple.Create(_primeRequisite, primeRequisiteScore);
     }
 }
