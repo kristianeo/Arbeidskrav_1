@@ -1,4 +1,5 @@
 using System.Text.Json;
+using Arbeidskrav_1.CharacterRepository;
 
 namespace Arbeidskrav_1.Generators;
 
@@ -11,14 +12,10 @@ public abstract class NameChecker
     /// <returns></returns>
     public static bool CharacterExists(string name)
     {
-        string filePath = CharacterRepository.FilePathGetter.GetFilePath();
-        string json = File.ReadAllText(filePath);
+        List<Dictionary<string, string>> characters = JsonGetter.GetJson();
         
-        if (!File.Exists(filePath) || string.IsNullOrWhiteSpace(json))
-            return false;
-
-        var characters = JsonSerializer.Deserialize<List<Dictionary<string, string>>>(json);
-
-        return characters != null && characters.Any(c => c.ContainsValue(name));
+        return characters.Any(character => 
+            character.TryGetValue("Character Name: ",  out var charName)
+            && charName.Equals(name, StringComparison.OrdinalIgnoreCase));
     }
 }
