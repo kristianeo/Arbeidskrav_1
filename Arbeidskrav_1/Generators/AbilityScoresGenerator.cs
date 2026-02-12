@@ -17,11 +17,15 @@ public abstract class AbilityScoresGenerator
         AnsiConsole.Status()
             .Spinner(Spinner.Known.Binary)
             .Start("Rolling ability scores...", ctx => { Thread.Sleep(1500); });
-
+        
         foreach (string value in CharacterClass.AbilityScores.Keys)
         {
             CharacterClass.AbilityScores[value] = 0;
             CharacterClass.AbilityScores[value] += DiceRoll.RollDice("3d6");
+            if (CharacterClass.AbilityScores[value] < 3 || CharacterClass.AbilityScores[value] > 18)
+            {
+                AnsiConsole.MarkupLine($"[red]{CharacterClass.AbilityScores[value]} is out of range.[/]");
+            }
         }
 
         UserInterface.AbilityScoreDisplayer.DisplayAbilityScores();
