@@ -43,5 +43,20 @@
     "Prime requisite score: ": "16",
     "Modifier: ": "\u002B2",
     "XP for level 2: ": "1200"
+  },
+  {
+    "Character Name: ": "Fredrik",
+    "Class: ": "Fighter",
+    "Hit Points: ": "3 (1d8 \u002B0)",
+    "Strength": "13",
+    "Intelligence": "11",
+    "Wisdom": "8",
+    "Dexterity": "12",
+    "Constitution": "12",
+    "Charisma": "10",
+    "Prime Requisite: ": "Strength",
+    "Prime requisite score: ": "13",
+    "Modifier: ": "\u002B1",
+    "XP for level 2: ": "2000"
   }
 ]

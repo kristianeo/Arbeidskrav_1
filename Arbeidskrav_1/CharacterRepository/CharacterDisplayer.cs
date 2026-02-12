@@ -9,7 +9,7 @@ public abstract class CharacterDisplayer
     /// gathered from the Character repository.
     /// </summary>
     /// <param name="info"></param>
-    public static void DisplayCharacter(Dictionary<string, string> info)
+    public static Grid DisplayCharacter(Dictionary<string, string> info)
     {
         var grid = new Grid();
   
@@ -35,7 +35,7 @@ public abstract class CharacterDisplayer
                       $"[darkorange]CON: [/][darkorange3_1]{info["Constitution"]} [/]" +
                       $"[purple]CHA: [/][purple4]{info["Charisma"]} [/]")
                 .NoBorder());
-  
-        AnsiConsole.Write(grid);
+
+        return grid;
     }
 }

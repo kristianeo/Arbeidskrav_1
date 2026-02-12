@@ -1,4 +1,5 @@
 using Spectre.Console;
+using Spectre.Console.Rendering;
 
 namespace Arbeidskrav_1.CharacterRepository;
 
@@ -25,13 +26,24 @@ public abstract class CharacterGetter
 
         else if (selected == "Show all generated characters")
         {
+            Console.Clear();
+            var rows = new List<IRenderable>();
+            
             foreach (var character in characters)
             {
-                CharacterDisplayer.DisplayCharacter(character);
+                rows.Add(CharacterDisplayer.DisplayCharacter(character));
             }
+            
+            var panel = new Panel(new Rows(rows))
+                .Header("Character Repository")
+                .DoubleBorder()
+                .BorderColor(Color.Green);
+
+            AnsiConsole.Write(panel);
         }
         else
         {
+            Console.Clear();
             AnsiConsole.MarkupLine("[bold]Let's search for a character![/]\n");
             string name = AnsiConsole.Ask<string>("What is the name of the character?");
 
@@ -42,7 +54,8 @@ public abstract class CharacterGetter
             }
             else
             {
-                CharacterDisplayer.DisplayCharacter(info);
+                var grid = CharacterDisplayer.DisplayCharacter(info);
+                AnsiConsole.Write(grid);
             }
         }
         UserInterface.CreateOrSearch.Choice();

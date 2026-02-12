@@ -13,7 +13,7 @@ public abstract class CreateOrSearch
     public static void Choice()
     {
         var prompt = new SelectionPrompt<string>()
-            .Title("\n[bold rapidblink]What would you like to do next?[/]")
+            .Title("\n[bold]What would you like to do next?[/]")
             .AddChoices("Create a new character", "Search in character repository", "Exit");
         var selected = AnsiConsole.Prompt(prompt);
         switch (selected)

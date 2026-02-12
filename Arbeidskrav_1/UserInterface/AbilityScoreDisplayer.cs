@@ -16,7 +16,7 @@ public abstract class AbilityScoreDisplayer
         var abilityKeys = abilityScores.Keys.ToList();
         var abilityValues = abilityScores.Values.ToList();
         var chart = new BarChart()
-            .Label("[bold]Ability Scores[/]")
+            .Label("[bold]Ability Scores[/]").LeftAlignLabel()
             .WithMaxValue(25)
             .AddItem(abilityKeys[0], abilityValues[0], Color.Red)
             .AddItem(abilityKeys[1], abilityValues[1], Color.Blue)
