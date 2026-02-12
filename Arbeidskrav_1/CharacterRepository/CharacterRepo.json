@@ -58,5 +58,20 @@
     "Prime requisite score: ": "13",
     "Modifier: ": "\u002B1",
     "XP for level 2: ": "2000"
+  },
+  {
+    "Character Name: ": "Gokstad",
+    "Class: ": "Fighter",
+    "Hit Points: ": "6 (1d8 \u002B0)",
+    "Strength": "16",
+    "Intelligence": "11",
+    "Wisdom": "6",
+    "Dexterity": "13",
+    "Constitution": "12",
+    "Charisma": "8",
+    "Prime Requisite: ": "Strength",
+    "Prime requisite score: ": "16",
+    "Modifier: ": "\u002B2",
+    "XP for level 2: ": "2000"
   }
 ]

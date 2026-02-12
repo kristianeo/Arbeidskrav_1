@@ -32,6 +32,7 @@ public abstract class CharacterGetter
             foreach (var character in characters)
             {
                 rows.Add(CharacterDisplayer.DisplayCharacter(character));
+                rows.Add(new Markup("[green]_________________________________________________[/]"));
             }
             
             var panel = new Panel(new Rows(rows))

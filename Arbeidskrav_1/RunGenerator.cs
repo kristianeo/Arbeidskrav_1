@@ -39,7 +39,7 @@ public abstract class RunGenerator
         AnsiConsole.Write(new Rule("[green]to the character generator![/]"));
         
         var prompt = new SelectionPrompt<string>()
-            .Title("\n[slowblink bold]What would you like to do?[/]")
+            .Title("\n[bold]What would you like to do?[/]")
             .AddChoices("Create character", "Search in character repository");
         var selected = AnsiConsole.Prompt(prompt);
         
