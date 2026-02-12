@@ -118,5 +118,20 @@
     "Prime requisite score: ": "11",
     "Modifier: ": "\u002B0",
     "XP for level 2: ": "2000"
+  },
+  {
+    "Character Name: ": "Mjndfj",
+    "Class: ": "Fighter",
+    "Hit Points: ": "4 (1d8 \u002B1)",
+    "Strength": "10",
+    "Intelligence": "9",
+    "Wisdom": "7",
+    "Dexterity": "10",
+    "Constitution": "14",
+    "Charisma": "6",
+    "Prime Requisite: ": "Strength",
+    "Prime requisite score: ": "10",
+    "Modifier: ": "\u002B0",
+    "XP for level 2: ": "2000"
   }
 ]

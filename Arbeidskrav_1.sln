@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arbeidskrav_1", "Arbeidskrav_1\Arbeidskrav_1.csproj", "{14CD2D9D-F638-4FC5-B4B0-096877913B93}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arbeidskrav_1", "Arbeidskrav_1.csproj", "{849902FF-6D4D-4B4C-A3DD-8D24EF7669DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,5 +12,9 @@ Global
 		{14CD2D9D-F638-4FC5-B4B0-096877913B93}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{14CD2D9D-F638-4FC5-B4B0-096877913B93}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14CD2D9D-F638-4FC5-B4B0-096877913B93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{849902FF-6D4D-4B4C-A3DD-8D24EF7669DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{849902FF-6D4D-4B4C-A3DD-8D24EF7669DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{849902FF-6D4D-4B4C-A3DD-8D24EF7669DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{849902FF-6D4D-4B4C-A3DD-8D24EF7669DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
