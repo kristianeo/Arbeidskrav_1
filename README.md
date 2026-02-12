@@ -38,6 +38,12 @@ Kristiane Olsen  [GitHub](https://github.com/Kristianeo)
 ````bash
     dotnet add package Spectre.Console
 ````
+3. Change working directory for correct .json path (may not be applicable)
+```bash
+    C:/Users/olsen/OneDrive/Dokumenter/GitHub/Arbeidskrav_1/bin/Debug/net8.0/Arbeidskrav_1.exe
+    
+    change to: C:/Users/olsen/OneDrive/Dokumenter/GitHub/Arbeidskrav_1
+```
 
 ## Process
 I started with making an abstract CharacterClass as the base class, and then the concrete classes. 
