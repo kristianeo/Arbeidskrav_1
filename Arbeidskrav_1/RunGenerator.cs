@@ -24,20 +24,22 @@ public abstract class RunGenerator
     /// Shows the starting screen. The player gets to chose if they want to
     /// make a new character or search in the repository.
     /// </summary>
-    public static void WelcomeMessage()
+    public static bool WelcomeMessage()
     {
+        bool condition = false;
+        
         Console.Clear();
+        
         var figlet = new FigletText("Welcome")
         {
             Color = Color.Green,
             Justification = Justify.Center
         };
-        
         AnsiConsole.Write(figlet);
         AnsiConsole.Write(new Rule("[green]to the character generator![/]"));
         
         var prompt = new SelectionPrompt<string>()
-            .Title("\n[rapidblink bold]What would you like to do?[/]")
+            .Title("\n[slowblink bold]What would you like to do?[/]")
             .AddChoices("Create character", "Search in character repository");
         var selected = AnsiConsole.Prompt(prompt);
         
@@ -45,12 +47,14 @@ public abstract class RunGenerator
         {
             case "Create character":
                 AnsiConsole.Clear();
-                Run();
+                condition = true;
                 break;
             case "Search in character repository":
                 AnsiConsole.Clear();
-                CharacterGetter.GetCharacter();
+                condition = false;
                 break;
         }
+
+        return condition;
     }
 }

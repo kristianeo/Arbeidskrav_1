@@ -4,6 +4,14 @@ class Program
 {
     static void Main(string[] args)
     {
-        RunGenerator.WelcomeMessage();
+        bool choice = RunGenerator.WelcomeMessage();
+        if (choice)
+        {
+            RunGenerator.Run();
+        }
+        else
+        {
+            CharacterRepository.CharacterGetter.GetCharacter();
+        }
     }
 }
