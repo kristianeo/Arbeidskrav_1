@@ -10,12 +10,15 @@ public abstract class NameChecker
     /// </summary>
     /// <param name="name"></param>
     /// <returns></returns>
-    public static bool CharacterExists(string name)
+    public static Dictionary<string, string> CharacterExists(string name)
     {
         List<Dictionary<string, string>> characters = JsonGetter.GetJson();
         
-        return characters.Any(character => 
-            character.TryGetValue("Character Name: ",  out var charName)
-            && charName.Equals(name, StringComparison.OrdinalIgnoreCase));
+        
+        var charName = characters.FirstOrDefault(
+            character => character.TryGetValue("Character Name: ",  out var charName)
+                         && charName.Equals(name, StringComparison.OrdinalIgnoreCase));
+
+        return charName ?? new Dictionary<string, string>();
     }
 }

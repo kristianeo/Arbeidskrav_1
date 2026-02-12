@@ -13,7 +13,7 @@ public abstract class CharacterNameGenerator
         AskName:
         var charName = AnsiConsole.Ask<string>("[bold]Enter character name: [/]");
         
-        if (NameChecker.CharacterExists(charName))
+        if (NameChecker.CharacterExists(charName).Count != 0)
         {
             AnsiConsole.MarkupLine("[red]The character name is already in use.[/]");
             goto AskName;

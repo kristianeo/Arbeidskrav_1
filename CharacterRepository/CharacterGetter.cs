@@ -49,13 +49,11 @@ public abstract class CharacterGetter
             AnsiConsole.MarkupLine("[bold]Let's search for a character![/]\n");
             string name = AnsiConsole.Ask<string>("What is the name of the character?");
 
-            if (NameChecker.CharacterExists(name))
-            {
-                var charName = characters.FirstOrDefault(
-                    character => character.TryGetValue("Character Name: ",  out var charName)
-                                                         && charName.Equals(name, StringComparison.OrdinalIgnoreCase));
+            Dictionary<string, string> charName = NameChecker.CharacterExists(name);
 
-                var panel = new Panel(new Rows(CharacterDisplayer.DisplayCharacter(charName!)))
+            if (charName.Count != 0)
+            {
+                var panel = new Panel(new Rows(CharacterDisplayer.DisplayCharacter(charName)))
                     .Header("Character found")
                     .DoubleBorder()
                     .BorderColor(Color.Green);

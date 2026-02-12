@@ -133,5 +133,20 @@
     "Prime requisite score: ": "10",
     "Modifier: ": "\u002B0",
     "XP for level 2: ": "2000"
+  },
+  {
+    "Character Name: ": "Freddy",
+    "Class: ": "Magic-User",
+    "Hit Points: ": "4 (1d4 \u002B0)",
+    "Strength": "8",
+    "Intelligence": "10",
+    "Wisdom": "8",
+    "Dexterity": "9",
+    "Constitution": "11",
+    "Charisma": "8",
+    "Prime Requisite: ": "Intelligence",
+    "Prime requisite score: ": "10",
+    "Modifier: ": "\u002B0",
+    "XP for level 2: ": "2500"
   }
 ]
